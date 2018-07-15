@@ -1,0 +1,441 @@
+.colorPlus{
+    color: #390;
+}
+.colorMinus{
+    color: #F80;
+}
+    .colorMinus .descr{
+        color: #B0B0B0;
+        font-size: 85%;
+    }
+.colorOverPlus{
+    color: #390;
+}
+.colorOverMinus{
+    color: #f00;
+}
+.colorMove{
+    color: #444;
+}
+
+
+
+
+
+.userAgreement{}
+
+
+
+
+
+.userHelp{}
+    .userHelp .text img{
+        width: 70%;
+        display: block;
+        margin: 0px auto;
+    }
+
+
+
+
+
+nav.navbar{
+    background: url('../images/bg.jpg');
+    border-radius: 0px;
+    margin-bottom: 0px;
+    border: none;
+}
+    nav.navbar .navbar-header{}
+        nav.navbar .navbar-header .navbar-brand{
+            padding: 7px 8px 9px;
+            height: auto;
+        }
+            nav.navbar .navbar-header .navbar-brand img{
+                height: 54px;
+            }
+        nav.navbar .navbar-header button.navbar-toggle{
+            margin-bottom: 0px;
+            margin-top: 18px;
+            color: #fff;
+        }
+            nav.navbar .navbar-header button.navbar-toggle span{
+                background-color: #fff;
+            }
+        nav.navbar .navbar-header button.navbar-toggle:hover, nav.navbar .navbar-header button.navbar-toggle:focus{
+            background-color: #e5dd8f;
+            border-color: #e5dd8f;
+        }
+            nav.navbar .navbar-header button.navbar-toggle:hover span, nav.navbar .navbar-header button.navbar-toggle:focus span{
+                background-color: #678c40;
+            }
+    nav.navbar .navbar-collapse{
+        padding-top: 20px;
+        padding-right: 20px;
+    }
+        nav.navbar .navbar-collapse ul.navbar-nav{
+            margin-left: 0px;
+        }
+            nav.navbar .navbar-collapse ul.navbar-nav li a{
+                color: #000;
+                font-size: 16px;
+                line-height: 18px;
+                border-radius: 3px;
+                padding: 7px 10px;
+            }
+            nav.navbar .navbar-collapse ul.navbar-nav li a:hover{
+                color: #0c0;
+                background-color: #fff;
+            }
+                nav.navbar .navbar-collapse ul.navbar-nav li.active a, nav.navbar .navbar-collapse ul.navbar-nav li.active a:hover, nav.navbar .navbar-collapse ul.navbar-nav li.active a:focus{
+                    background-color: #e5dd8f;
+                    color: #678c40;
+                }
+    nav.navbar .accountsTopPanel{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        margin-top: 50px;
+        margin-left: 100px;
+    }
+        nav.navbar .accountsTopPanel ul{
+            list-style: none;
+            padding-left: 0px;
+            padding-top: 4px;
+            margin: 0px;
+        }
+            nav.navbar .accountsTopPanel ul li{
+                display: block;
+                float: left;
+                color: #fff;
+                padding: 0px 10px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+
+
+
+
+.main{
+    background-color: #ffffff;
+    padding: 40px 0px 30px;
+}
+    .main .table{
+    	border: none;
+    }
+        .main .table thead>tr>th{
+        	text-align: center;
+        	border-bottom-width: 1px;
+        }
+        .main .table thead.over-head>tr>th{
+        	border: none;
+        }
+        	.main .table thead.over-head>tr>th:first-child{
+        		text-align: left;
+        		padding: 2px;
+        		font-size: 20px;
+        	}
+        .main .table .under-head{
+        	font-weight: bold;
+        }
+        .main .table tbody>tr{
+        	cursor: pointer;
+        }
+        .main .table tbody>tr>td.colorOverPlus, .main .table tbody>tr>td.colorOverMinus{
+            font-weight: bold;
+        }
+    .main .panel{}
+        .main .panel .panel-heading{
+        	font-weight: 700;
+        }
+    .main .balance-head{
+    	font-size: 20px;
+    }
+    .main blockquote{
+        margin-top: 50px;
+    }
+    .main .forum-list{}
+        .main .forum-list .list-group-item-text{
+            color: #999;
+            font-size: 12px;
+        }
+        .main .forum-list .label-status{
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+            margin-left: 15px;
+            border-radius: 5px;
+            padding: 0px 4px 1px;
+        }
+            .main .forum-list .label-status.created{
+                background-color: #ff7777;
+            }
+            .main .forum-list .label-status.viewed{
+                background-color: #6666ff;
+            }
+            .main .forum-list .label-status.progress{
+                background-color: #FFD700;
+            }
+            .main .forum-list .label-status.fixed, .main .forum-list .label-status.done{
+                background-color: #44cc44;
+            }
+            .main .forum-list .label-status.closed, .main .forum-list .label-status.cancel{
+                background-color: #aaaaaa;
+            }
+        .main .forum-list .statusesMenu{
+            margin-left: 15px;
+        }
+            .main .forum-list .statusesMenu ul>li>span{
+                display: block;
+                padding: 3px 20px;
+                line-height: 1.42;
+                cursor: pointer;
+            }
+            .main .forum-list .statusesMenu ul>li>span:hover{
+                background-color: #eee;
+            }
+    .main .comments-list{}
+        .main .comments-list .list-group-item-text{
+            color: #999;
+            font-size: 12px;
+        }
+    .main .home-descr{
+        padding: 10px 20px;
+        text-align: justify;
+    }
+    .main .home-btnGooglePlay{
+        padding: 10px 20px;
+        text-align: center;
+    }
+        .main .home-btnGooglePlay img{
+            width: 300px;
+        }
+    .main .home-countUser{
+        padding: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+        .main .home-countUser span{
+            color: #fff;
+            background-color: #00f;
+            border-radius: 4px;
+            font-size: 26px;
+            padding: 2px 5px 3px;
+            position: relative;
+            top: 2px;
+        }
+    .main .home-btnLiqPay a{
+        width: 280px;
+        display: block;
+        margin: 30px auto;
+        font-size: 24px;
+        font-weight: bold;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .main .home-help{
+        float: left;
+        padding-top: 40px;
+    }
+        .main .home-help a{
+            color: #00f;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    .main .home-thank{
+        float: right;
+        padding-top: 40px;
+        color: #0a0;
+        font-weight: bold;
+    }
+        .main .list-group .list-group-item{
+            border: none;
+            padding: 3px 0px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 0px;
+        }
+            .main .list-group .list-group-item .rowDate{
+                font-weight: bold;
+                padding-top: 15px;
+            }
+            .main .list-group .list-group-item .rowData{
+                margin-top: 5px;
+            }
+                .main .list-group .list-group-item .rowData span.sum{
+                    margin-right: 15px;
+                }
+            .main .list-group .list-group-item .rowData:hover{
+                background-color: #EEE;
+                cursor: pointer;
+            }
+            .main .list-group .list-group-item .rowDescr{
+                color: #aaa;
+                font-size: 80%;
+                line-height: 1.2;
+                white-space: normal;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+    .main .barMonthYear{
+        margin-bottom: 30px;
+    }
+    .main blockquote p{
+        font-size: 14px;
+    }
+    .main .progress{
+        margin-top: 30px;
+        height: 30px;
+    }
+        .main .progress .progress-bar{
+            line-height: 30px;
+            font-weight: bold;
+        }
+        .main .progress span{
+            position: absolute;
+            margin-top: -20px;
+            font-weight: bold;
+        }
+    .main .gisto-title{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .main .filter-container{
+        display: inline;
+        position: relative;
+        padding: 10px 0px;
+    }
+        .main .filter-container .timeInterval{
+            width: 150px;
+            cursor: pointer;
+            display: inline;
+        }
+        .main .filter-container .searchBy{
+            width: 150px;
+            cursor: pointer;
+            display: inline;
+        }
+        .main .filter-container .searchText{
+            width: 290px;
+            display: inline;
+        }
+        .main .filter-container .descr{
+            position: absolute;
+            left: 5px;
+            top: -13px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+
+
+
+
+.modal{}
+    .modal .modal-header{
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+
+
+
+
+#loaderPage{
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 1100;
+}
+    #loaderPage .cssload-loader{
+        width: 200px;
+        height: 200px;
+        z-index: 1110;
+    }
+    #loaderPage .loaderBG{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        opacity: 0.4;
+        background-color: #DDDDDD;
+        z-index: 1105;
+    }
+
+
+
+
+
+.footer{
+    height: 50px;
+    background-color: #fff;
+    border-top: 1px solid #000;
+}
+    .footer .text{
+        padding-top: 9px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: bold;
+    }
+        .footer .text a{
+            color: #8d01a2;
+        }
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+    nav.navbar .accountsTopPanel{
+        margin-top: 0px;
+    }
+        nav.navbar .accountsTopPanel ul li{
+            float: none;
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.printMode{}
+    .printMode button{
+        display: none;
+    }
+    .printMode .navbar, .printMode .footer{
+        display: none;
+    }
+    .printMode .main{
+        border: 1px solid #000000;
+        padding: 0px 10px;
+    }
+    .printMode #printModeButton{
+        display: inline-block!important;
+        position: absolute;
+        z-index: 1;
+        right: -50px;
+    }
+    .printMode .filter-container .descr{
+        display: none;
+    }

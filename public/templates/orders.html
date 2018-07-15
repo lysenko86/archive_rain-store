@@ -1,0 +1,23 @@
+<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages">{{message.text}}</div>
+<div class="row">
+	<div class="col-xs-12">
+		<table class="table table-bordered table-hover" ng-if="users.length">
+			<thead class="bg-primary"><tr>
+				<th width="70px">ID</th>
+				<th width="160px">Дата</th>
+				<th>Email</th>
+				<th width="170px">Підтверджений Email</th>
+				<th width="120px">Адміністратор</th>
+			</tr></thead>
+			<tbody>
+				<tr ng-repeat="item in users">
+					<td>{{item.id}}</td>
+					<td>{{item.created}}</td>
+					<td>{{item.email}}</td>
+					<td class="text-center"><span class="glyphicon {{item.confirm == 1 ? 'glyphicon-ok' : 'glyphicon-remove'}}" aria-hidden="true"></span></td>
+					<td class="text-center"><span class="glyphicon {{item.admin == 1 ? 'glyphicon-ok' : 'glyphicon-remove'}}" aria-hidden="true"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

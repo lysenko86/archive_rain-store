@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="rainApp">
+<head>
+	<link rel="icon" href="public/images/favicon.ico" type="image/x-icon">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link type="text/css" href="public/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="public/css/loader.css" rel="stylesheet">
+	<link type="text/css" href="public/css/styles.css" rel="stylesheet">
+	<script type="text/javascript" src="public/libs/jquery/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="public/libs/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="public/libs/angular/angular.min.js"></script>
+		<script type="text/javascript" src="public/libs/angular/angular-route.min.js"></script>
+		<script type="text/javascript" src="public/libs/angular/angular-local-storage.min.js"></script>
+	<script type="text/javascript" src="public/js/app.js"></script>
+	<script type="text/javascript" src="public/js/services.js"></script>
+	<script type="text/javascript" src="public/js/controllers.js"></script>
+  <title>Rain</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+            <div class="col-xs-12">
+				<nav class="navbar navbar-default" role="navigation" ng-controller="menuCtrl">
+				    <div class="container-fluid">
+				        <div class="navbar-header">
+				            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
+				                <span class="sr-only">Toggle navigation</span>
+				                <span class="icon-bar"></span>
+				                <span class="icon-bar"></span>
+				                <span class="icon-bar"></span>
+				            </button>
+				            <a class="navbar-brand" href="/"><img src="public/images/logo.png"></a>
+				        </div>
+				        <div class="collapse navbar-collapse" id="navbar-content">
+				            <ul class="nav navbar-nav navbar-right">
+				                <li ng-class="setActive('/signin')" ng-hide="isAuth"><a href="#/signin">Вхід</a></li>
+				                <li ng-class="setActive('/signup')" ng-hide="isAuth"><a href="#/signup">Реєстрація</a></li>
+								<li ng-class="setActive('/products')"><a href="#/products">Каталог</a></li>
+				                <li ng-class="setActive('/profile')" ng-show="isAuth"><a href="#/profile">Профіль</a></li>
+				                <li ng-class="setActive('/orders')" ng-show="isAuth"><a href="#/orders">Замовлення</a></li>
+				                <li ng-class="setActive('/logout')" ng-show="isAuth"><a href="#/logout">Вихід</a></li>
+				            </ul>
+				        </div>
+						<div class="accountsTopPanel" ng-if="isAuth">
+							<ul>
+								<li ng-repeat="item in accountsPanel" ng-if="item.panel == '1'">{{item.title}}: {{item.balance}}</li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+				    </div>
+				</nav>
+			</div>
+		</div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="main" ng-view></div>
+			</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="footer">
+					<div class="text">&copy;2018 RAIN INTERNATIONAL, LLC<br/><a href="mailto:INFO@rainstore.com.ua" target="_blank">INFO@RainStore.com.ua</a></div>
+				</div>
+            </div>
+        </div>
+    </div>
+	<div id="loaderPage">
+		<div class="cssload-loader">
+			<div class="cssload-inner cssload-one"></div>
+			<div class="cssload-inner cssload-two"></div>
+			<div class="cssload-inner cssload-three"></div>
+		</div>
+		<div class="loaderBG"></div>
+	</div>
+</body>
+</html>
