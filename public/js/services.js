@@ -1,9 +1,9 @@
 "use strict";
 
-var isDev  = location.href.indexOf('/web.trackmoney/') > -1;
+var isDev  = location.href.indexOf('/rain/') > -1;
 var config = {
     isDev : isDev,
-    api: isDev ? 'http://api.trackmoney/api.php' : 'http://api.trackmoney.com.ua/api.php'
+    api: isDev ? 'http://rain/api.php' : 'http://rainstore.com.ua/api.php'
 };
 
 

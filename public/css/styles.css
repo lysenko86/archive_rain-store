@@ -1,39 +1,4 @@
-.colorPlus{
-    color: #390;
-}
-.colorMinus{
-    color: #F80;
-}
-    .colorMinus .descr{
-        color: #B0B0B0;
-        font-size: 85%;
-    }
-.colorOverPlus{
-    color: #390;
-}
-.colorOverMinus{
-    color: #f00;
-}
-.colorMove{
-    color: #444;
-}
-
-
-
-
-
 .userAgreement{}
-
-
-
-
-
-.userHelp{}
-    .userHelp .text img{
-        width: 70%;
-        display: block;
-        margin: 0px auto;
-    }
 
 
 
@@ -80,11 +45,12 @@ nav.navbar{
                 font-size: 16px;
                 line-height: 18px;
                 border-radius: 3px;
-                padding: 7px 10px;
+                padding: 3px 7px;
+                background-color: #fff;
+                margin: 0px 4px;
             }
             nav.navbar .navbar-collapse ul.navbar-nav li a:hover{
                 color: #0c0;
-                background-color: #fff;
             }
                 nav.navbar .navbar-collapse ul.navbar-nav li.active a, nav.navbar .navbar-collapse ul.navbar-nav li.active a:hover, nav.navbar .navbar-collapse ul.navbar-nav li.active a:focus{
                     background-color: #e5dd8f;
@@ -203,80 +169,6 @@ nav.navbar{
         padding: 10px 20px;
         text-align: justify;
     }
-    .main .home-btnGooglePlay{
-        padding: 10px 20px;
-        text-align: center;
-    }
-        .main .home-btnGooglePlay img{
-            width: 300px;
-        }
-    .main .home-countUser{
-        padding: 20px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-    }
-        .main .home-countUser span{
-            color: #fff;
-            background-color: #00f;
-            border-radius: 4px;
-            font-size: 26px;
-            padding: 2px 5px 3px;
-            position: relative;
-            top: 2px;
-        }
-    .main .home-btnLiqPay a{
-        width: 280px;
-        display: block;
-        margin: 30px auto;
-        font-size: 24px;
-        font-weight: bold;
-        padding-top: 15px;
-        padding-bottom: 15px;
-    }
-    .main .home-help{
-        float: left;
-        padding-top: 40px;
-    }
-        .main .home-help a{
-            color: #00f;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    .main .home-thank{
-        float: right;
-        padding-top: 40px;
-        color: #0a0;
-        font-weight: bold;
-    }
-        .main .list-group .list-group-item{
-            border: none;
-            padding: 3px 0px;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 0px;
-        }
-            .main .list-group .list-group-item .rowDate{
-                font-weight: bold;
-                padding-top: 15px;
-            }
-            .main .list-group .list-group-item .rowData{
-                margin-top: 5px;
-            }
-                .main .list-group .list-group-item .rowData span.sum{
-                    margin-right: 15px;
-                }
-            .main .list-group .list-group-item .rowData:hover{
-                background-color: #EEE;
-                cursor: pointer;
-            }
-            .main .list-group .list-group-item .rowDescr{
-                color: #aaa;
-                font-size: 80%;
-                line-height: 1.2;
-                white-space: normal;
-                padding-left: 10px;
-                padding-right: 10px;
-            }
     .main .barMonthYear{
         margin-bottom: 30px;
     }
@@ -385,7 +277,7 @@ nav.navbar{
         font-weight: bold;
     }
         .footer .text a{
-            color: #8d01a2;
+            color: #7d0092;
         }
 
 
@@ -405,37 +297,3 @@ nav.navbar{
             float: none;
         }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.printMode{}
-    .printMode button{
-        display: none;
-    }
-    .printMode .navbar, .printMode .footer{
-        display: none;
-    }
-    .printMode .main{
-        border: 1px solid #000000;
-        padding: 0px 10px;
-    }
-    .printMode #printModeButton{
-        display: inline-block!important;
-        position: absolute;
-        z-index: 1;
-        right: -50px;
-    }
-    .printMode .filter-container .descr{
-        display: none;
-    }

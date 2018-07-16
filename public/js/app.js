@@ -7,7 +7,7 @@ rainApp.config(function($routeProvider, localStorageServiceProvider){
 
 	$routeProvider
 	.when('/home', {
-		templateUrl: 'templates/home.html',
+		templateUrl: 'public/templates/home.html',
 		controller: 'homeCtrl'
 	})
     .when('/signin', {
