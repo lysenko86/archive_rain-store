@@ -42,11 +42,8 @@ class Router{
         'getIncomeByMonth' => ['ctrl' => 'Actions', 'method' => 'getIncomeByMonth', 'access' => ['user', 'admin']],
         'getCostByMonth' => ['ctrl' => 'Actions', 'method' => 'getCostByMonth', 'access' => ['user', 'admin']],
 
-        'getCategories' => ['ctrl' => 'Categories', 'method' => 'getCategories', 'access' => ['user', 'admin']],
-        'getGoals'      => ['ctrl' => 'Categories', 'method' => 'getGoals',      'access' => ['user', 'admin']],
-        'getCategory'   => ['ctrl' => 'Categories', 'method' => 'getCategory',   'access' => ['user', 'admin']],
-        'editCategory'  => ['ctrl' => 'Categories', 'method' => 'editCategory',  'access' => ['user', 'admin']],
-        'delCategory'   => ['ctrl' => 'Categories', 'method' => 'delCategory',   'access' => ['user', 'admin']],
+        'getProducts' => ['ctrl' => 'Products', 'method' => 'getProducts', 'access' => ['user', 'admin']],
+        'getProduct'  => ['ctrl' => 'Products', 'method' => 'getProduct',  'access' => ['user', 'admin']],
 
         'getAccounts' => ['ctrl' => 'Accounts', 'method' => 'getAccounts', 'access' => ['user', 'admin']],
         'getBalances' => ['ctrl' => 'Accounts', 'method' => 'getBalances', 'access' => ['user', 'admin']],

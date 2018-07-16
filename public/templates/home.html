@@ -1,9 +1,11 @@
 <div class="row">
 	<div class="col-xs-12">
-		<h1>Вітаємо на сайті компанії Rain International!</h1>
-		<div class="home-descr">Цей сервіс створено, щоб допомогти кожному керувати своїми фінансами. Завдяки плануванню витрат і доходів на місяць ви зможете заощаджувати ваші кошти, планувати дорогі та довгострокові покупки, а також забути що таке борги, адже, ви зможете спланувати свій власний бюджет.</div>
-		<div class="home-descr"><strong>Це безпечно та повністю анонімно :)</strong> Ви лише надаєте нам електронну пошту і більше ніяких особистих даних. Всі розрахунки коштів - просто числа, прив'язані до електронної пошти.</div>
-		<div class="home-descr">На даний час сервіс активно розвивається, завдяки Форуму, ви можете пропонувати різні ідеї, які, можливо, будуть реалізовані, а також писати про помилки, ми будемо швидко відповідати та виправляти :).</div>
-		<div class="clearfix"></div>
+		<div class="product" ng-repeat="product in products">
+			<div class="product-title">{{product.title}}</div>
+			<div class="product-image"><img src="public/images/products/{{product.image}}" alt="{{product.title}}"/></div>
+			<div class="product-price">{{product.price}} грн.</div>
+			<button class="btn btn-success product-buy">Купить</button>
+			<div class="clearfix"></div>
+		</div>
 	</div>
 </div>

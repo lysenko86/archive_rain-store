@@ -2,18 +2,13 @@
     require_once('db.php');
     require_once('router.php');
 
-    require_once('controllers/admins.php');
     require_once('controllers/users.php');
-    require_once('controllers/forum.php');
-    require_once('controllers/actions.php');
-    require_once('controllers/categories.php');
-    require_once('controllers/accounts.php');
-    require_once('controllers/budgets.php');
-    require_once('controllers/properties.php');
+    require_once('controllers/orders.php');
+    require_once('controllers/products.php');
 
 
 
-    $officialEmail = 'INFO@TrackMoney.com.ua';
+    $officialEmail = 'INFO@RainStore.com.ua';
     $data   = ['status' => '', 'msg' => '', 'arr' => []];
     $db     = new Db;
     $router = new Router;

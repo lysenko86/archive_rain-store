@@ -3,7 +3,7 @@
 var rainApp = angular.module('rainApp', ['ngRoute', 'LocalStorageModule']);
 
 rainApp.config(function($routeProvider, localStorageServiceProvider){
-    localStorageServiceProvider.setPrefix('TrackMoney');
+    localStorageServiceProvider.setPrefix('RainStore');
 
 	$routeProvider
 	.when('/home', {
@@ -40,37 +40,9 @@ rainApp.config(function($routeProvider, localStorageServiceProvider){
 		templateUrl: 'templates/profile.html',
 		controller: 'profileCtrl'
 	})
-    .when('/actions', {
-		templateUrl: 'templates/actions.html',
-		controller: 'actionsCtrl'
-	})
 	.when('/categories', {
 		templateUrl: 'templates/categories.html',
 		controller: 'categoriesCtrl'
-	})
-	.when('/accounts', {
-		templateUrl: 'templates/accounts.html',
-		controller: 'accountsCtrl'
-	})
-    .when('/budgets', {
-		templateUrl: 'templates/budgets.html',
-		controller: 'budgetsCtrl'
-	})
-    .when('/properties', {
-		templateUrl: 'templates/properties.html',
-		controller: 'propertiesCtrl'
-	})
-    .when('/analytics', {
-		templateUrl: 'templates/analytics.html',
-		controller: 'analyticsCtrl'
-	})
-    .when('/forum', {
-		templateUrl: 'templates/forum.html',
-		controller: 'forumCtrl'
-	})
-    .when('/forum/:post', {
-		templateUrl: 'templates/post.html',
-		controller: 'forumCtrl'
 	})
     .when('/logout', {
 		templateUrl: 'templates/logout.html',
