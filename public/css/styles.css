@@ -1,4 +1,87 @@
-.userAgreement{}
+a{
+    color: #7d0092;
+}
+
+.main{
+    background-color: #ffffff;
+    padding: 40px 0px 30px;
+}
+
+.catalog-product{
+    display: inline-block;
+    width: 300px;
+    height: 385px;
+    border: 1px solid #CCC;
+    cursor: pointer;
+    margin: 7px;
+}
+    .catalog-product:hover{
+        border: 1px solid #7d0092;
+    }
+.catalog-product-title{
+    font-size: 20px;
+    line-height: 1;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+}
+    .catalog-product-image img{
+        width: 298px;
+    }
+.catalog-product-price{
+    font-size: 16px;
+    line-height: 1;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.catalog-product-buy{
+    font-size: 16px;
+    line-height: 1;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.product-page-image img{
+    width: 398px;
+}
+.product-page-title{
+    font-size: 20px;
+    line-height: 1;
+    font-weight: bold;
+}
+.product-page-descr{
+    margin-top: 20px;
+}
+.product-page-price{
+    margin-top: 50px;
+    Font-weight: bold;
+    font-size: 16px;
+}
+.product-page-buy{
+    margin-top: -36px;
+    Font-weight: bold;
+    font-size: 16px;
+}
+
+.footer{
+    height: 50px;
+    background-color: #fff;
+    border-top: 1px solid #000;
+}
+.footer-text{
+    padding-top: 9px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: bold;
+}
+
+
+
+
+
 
 
 
@@ -56,206 +139,6 @@ nav.navbar{
                     background-color: #e5dd8f;
                     color: #678c40;
                 }
-    nav.navbar .accountsTopPanel{
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        margin-top: 50px;
-        margin-left: 100px;
-    }
-        nav.navbar .accountsTopPanel ul{
-            list-style: none;
-            padding-left: 0px;
-            padding-top: 4px;
-            margin: 0px;
-        }
-            nav.navbar .accountsTopPanel ul li{
-                display: block;
-                float: left;
-                color: #fff;
-                padding: 0px 10px;
-                font-size: 12px;
-                font-weight: bold;
-            }
-
-
-
-
-
-.main{
-    background-color: #ffffff;
-    padding: 40px 0px 30px;
-}
-    .main .product{
-        display: inline-block;
-        width: 400px;
-        height: 500px;
-        border: 1px solid #CCC;
-        cursor: pointer;
-    }
-        .main .product .product-title{
-            font-size: 20px;
-            line-height: 1;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 30px;
-        }
-        .main .product .product-price{
-            font-size: 16px;
-            line-height: 1;
-            font-weight: bold;
-            margin: 5px 10px;
-            float: left;
-        }
-        .main .product .product-buy{
-            font-size: 16px;
-            line-height: 1;
-            font-weight: bold;
-            margin-top: 5px 10px;
-            float: right;
-        }
-    .main .table{
-    	border: none;
-    }
-        .main .table thead>tr>th{
-        	text-align: center;
-        	border-bottom-width: 1px;
-        }
-        .main .table thead.over-head>tr>th{
-        	border: none;
-        }
-        	.main .table thead.over-head>tr>th:first-child{
-        		text-align: left;
-        		padding: 2px;
-        		font-size: 20px;
-        	}
-        .main .table .under-head{
-        	font-weight: bold;
-        }
-        .main .table tbody>tr{
-        	cursor: pointer;
-        }
-        .main .table tbody>tr>td.colorOverPlus, .main .table tbody>tr>td.colorOverMinus{
-            font-weight: bold;
-        }
-    .main .panel{}
-        .main .panel .panel-heading{
-        	font-weight: 700;
-        }
-    .main .balance-head{
-    	font-size: 20px;
-    }
-    .main blockquote{
-        margin-top: 50px;
-    }
-    .main .forum-list{}
-        .main .forum-list .list-group-item-text{
-            color: #999;
-            font-size: 12px;
-        }
-        .main .forum-list .label-status{
-            font-size: 14px;
-            color: #fff;
-            font-weight: bold;
-            margin-left: 15px;
-            border-radius: 5px;
-            padding: 0px 4px 1px;
-        }
-            .main .forum-list .label-status.created{
-                background-color: #ff7777;
-            }
-            .main .forum-list .label-status.viewed{
-                background-color: #6666ff;
-            }
-            .main .forum-list .label-status.progress{
-                background-color: #FFD700;
-            }
-            .main .forum-list .label-status.fixed, .main .forum-list .label-status.done{
-                background-color: #44cc44;
-            }
-            .main .forum-list .label-status.closed, .main .forum-list .label-status.cancel{
-                background-color: #aaaaaa;
-            }
-        .main .forum-list .statusesMenu{
-            margin-left: 15px;
-        }
-            .main .forum-list .statusesMenu ul>li>span{
-                display: block;
-                padding: 3px 20px;
-                line-height: 1.42;
-                cursor: pointer;
-            }
-            .main .forum-list .statusesMenu ul>li>span:hover{
-                background-color: #eee;
-            }
-    .main .comments-list{}
-        .main .comments-list .list-group-item-text{
-            color: #999;
-            font-size: 12px;
-        }
-    .main .home-descr{
-        padding: 10px 20px;
-        text-align: justify;
-    }
-    .main .barMonthYear{
-        margin-bottom: 30px;
-    }
-    .main blockquote p{
-        font-size: 14px;
-    }
-    .main .progress{
-        margin-top: 30px;
-        height: 30px;
-    }
-        .main .progress .progress-bar{
-            line-height: 30px;
-            font-weight: bold;
-        }
-        .main .progress span{
-            position: absolute;
-            margin-top: -20px;
-            font-weight: bold;
-        }
-    .main .gisto-title{
-        font-size: 18px;
-        font-weight: bold;
-    }
-    .main .filter-container{
-        display: inline;
-        position: relative;
-        padding: 10px 0px;
-    }
-        .main .filter-container .timeInterval{
-            width: 150px;
-            cursor: pointer;
-            display: inline;
-        }
-        .main .filter-container .searchBy{
-            width: 150px;
-            cursor: pointer;
-            display: inline;
-        }
-        .main .filter-container .searchText{
-            width: 290px;
-            display: inline;
-        }
-        .main .filter-container .descr{
-            position: absolute;
-            left: 5px;
-            top: -13px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-
-
-
-
-.modal{}
-    .modal .modal-header{
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-    }
 
 
 
@@ -287,41 +170,3 @@ nav.navbar{
         background-color: #DDDDDD;
         z-index: 1105;
     }
-
-
-
-
-
-.footer{
-    height: 50px;
-    background-color: #fff;
-    border-top: 1px solid #000;
-}
-    .footer .text{
-        padding-top: 9px;
-        text-align: center;
-        font-size: 14px;
-        line-height: 18px;
-        font-weight: bold;
-    }
-        .footer .text a{
-            color: #7d0092;
-        }
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 767px) {
-    nav.navbar .accountsTopPanel{
-        margin-top: 0px;
-    }
-        nav.navbar .accountsTopPanel ul li{
-            float: none;
-        }
-}

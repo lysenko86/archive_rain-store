@@ -1,0 +1,13 @@
+<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages" ng-hide="formIsShown">{{message.text}}</div>
+<div class="row">
+	<div class="col-xs-12">
+        <div class="product-page">
+			<div class="product-page-image pull-left"><img src="public/images/products/{{product.image}}" alt="{{product.title}}"/></div>
+            <div class="product-page-title">{{product.title}}</div>
+			<div class="product-page-descr">{{product.descr}}</div>
+            <div class="product-page-price">Ціна: {{product.price}} грн.</div>
+            <button class="btn btn-success product-page-buy pull-right">В кошик</button>
+			<div class="clearfix"></div>
+        </div>
+	</div>
+</div>
