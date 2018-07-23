@@ -2,6 +2,7 @@
     require_once('db.php');
     require_once('router.php');
 
+    require_once('controllers/users.php');
     require_once('controllers/products.php');
 
 

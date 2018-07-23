@@ -74,6 +74,29 @@ rainApp.service('requestServ', function($http, localStorageService, messagesServ
 
 
 
+rainApp.service('usersServ', function(requestServ){
+    this.signup = function(user, cb){
+        requestServ.sendRequest('post', 'signup', {
+            email:    user.email,
+            password: user.password,
+            agree:    user.agree
+        }, cb);
+    }
+    this.confirm = function(confirm, cb){
+        requestServ.sendRequest('get', 'confirm', {
+            confirm: confirm
+        }, cb);
+    }
+    this.signin = function(user, cb){
+        requestServ.sendRequest('post', 'signin', {
+            email:    user.email,
+            password: user.password
+        }, cb);
+    }
+});
+
+
+
 rainApp.service('productsServ', function(requestServ){
     this.getProducts = function(cb){
         requestServ.sendRequest('get', 'getProducts', {}, cb);

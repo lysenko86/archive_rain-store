@@ -35,6 +35,76 @@ rainApp.controller('homeCtrl', function($location, $scope, messagesServ, product
 
 
 
+rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scope, messagesServ, localStorageService, usersServ){
+	this.init = function(){
+		$scope.isAuth = localStorageService.get('token');
+		if ($scope.isAuth){
+			$location.url('home');
+		}
+		$scope.user = {
+			email: '',
+			password: ''
+		};
+		$scope.auth = {
+			notConfirmed: false,
+			email: ''
+		};
+		if ($routeParams.confirm){
+			usersServ.confirm($routeParams.confirm, function(data){
+				messagesServ.showMessages(data.status, data.msg, 2000, function(){
+					$location.url('home');
+				});
+			});
+		}
+	}
+	$scope.signup = function(){
+		if (!$scope.user.email || !$scope.user.password){
+			messagesServ.showMessages('error', 'Помилка! Поля "Email" та "Пароль" обов\'язкові для заповнення!');
+		}
+		else if (!/^\S+@\S+$/.test($scope.user.email)){
+			messagesServ.showMessages('error', 'Помилка! Значення поля "Email" має бути наступного формату: email@email.com!');
+		}
+		else if (!$scope.user.agree){
+			messagesServ.showMessages('error', 'Помилка! Ви повинні прийняти умови користувацької угоди.');
+		}
+		else{
+			usersServ.signup($scope.user, function(data){
+				$scope.user.email = $scope.user.password = $scope.user.agree = '';
+				messagesServ.showMessages(data.status, data.msg, 6000, function(){
+					if (data.status == 'success'){
+						$location.url('home');
+					}
+				});
+			});
+		}
+	}
+	$scope.signin = function(){
+		if (!$scope.user.email || !$scope.user.password){
+			$scope.auth.notConfirmed = false;
+			$scope.auth.email        = '';
+			messagesServ.showMessages('error', 'Помилка! Поля "Email" та "Пароль" обов\'язкові для заповнення!');
+		}
+		else{
+			usersServ.signin($scope.user, function(data){
+				$scope.user.password = '';
+				$scope.auth.notConfirmed = data.notConfirmed;
+				$scope.auth.email        = data.email;
+				if (data.status == 'success'){
+					localStorageService.set('token', data.arr.token);
+					$window.location.href = '/';
+				}
+				else{
+					messagesServ.showMessages(data.status, data.msg);
+				}
+            });
+		}
+	}
+
+	this.init();
+});
+
+
+
 rainApp.controller('productsCtrl', function($location, $routeParams, $scope, messagesServ, productsServ){
 	this.init = function(){
 		$scope.productId = $routeParams.id;

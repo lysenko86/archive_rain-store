@@ -1,10 +1,64 @@
-a{
+a, .btn-link{
     color: #7d0092;
 }
+a:hover, .btn-link:hover{
+    color: #7d0092;
+    text-decoration: underline;
+}
+
+nav.navbar{
+    background: url('../images/bg.jpg');
+    border-radius: 0px;
+    margin-bottom: 0px;
+    border: none;
+}
+.navbar-brand{
+    padding: 7px 8px 9px;
+    height: auto;
+}
+    .navbar-brand img{
+        height: 54px;
+    }
+    .navbar-header button.navbar-toggle{
+        margin-top: 18px;
+        background-color: #fff;
+    }
+        .navbar-header button.navbar-toggle .icon-bar{
+            background-color: #7d0092;
+        }
+    .navbar-header button.navbar-toggle:hover, .navbar-header button.navbar-toggle:focus{
+        background-color: #7d0092;
+    }
+        .navbar-header button.navbar-toggle:hover span, .navbar-header button.navbar-toggle:focus span{
+            background-color: #fff;
+        }
+.navbar-collapse{
+    padding-top: 20px;
+    padding-right: 20px;
+}
+ul.navbar-nav{
+    margin-left: 0px;
+}
+    .navbar-default ul.navbar-nav>li>a{
+        color: #7d0092;
+        font-size: 16px;
+        line-height: 18px;
+        border-radius: 3px;
+        padding: 3px 7px;
+        background-color: #fff;
+        margin: 0px 4px;
+    }
+        .navbar-default ul.navbar-nav>li>a:hover, .navbar-default ul.navbar-nav li.active a, .navbar-default ul.navbar-nav li.active a:hover, .navbar-default ul.navbar-nav li.active a:focus{
+            background-color: #7d0092;
+            color: #fff;
+        }
 
 .main{
     background-color: #ffffff;
     padding: 40px 0px 30px;
+}
+.panel-heading{
+    font-weight: bold;
 }
 
 .catalog-product{
@@ -87,58 +141,7 @@ a{
 
 
 
-nav.navbar{
-    background: url('../images/bg.jpg');
-    border-radius: 0px;
-    margin-bottom: 0px;
-    border: none;
-}
-    nav.navbar .navbar-header{}
-        nav.navbar .navbar-header .navbar-brand{
-            padding: 7px 8px 9px;
-            height: auto;
-        }
-            nav.navbar .navbar-header .navbar-brand img{
-                height: 54px;
-            }
-        nav.navbar .navbar-header button.navbar-toggle{
-            margin-bottom: 0px;
-            margin-top: 18px;
-            color: #fff;
-        }
-            nav.navbar .navbar-header button.navbar-toggle span{
-                background-color: #fff;
-            }
-        nav.navbar .navbar-header button.navbar-toggle:hover, nav.navbar .navbar-header button.navbar-toggle:focus{
-            background-color: #e5dd8f;
-            border-color: #e5dd8f;
-        }
-            nav.navbar .navbar-header button.navbar-toggle:hover span, nav.navbar .navbar-header button.navbar-toggle:focus span{
-                background-color: #678c40;
-            }
-    nav.navbar .navbar-collapse{
-        padding-top: 20px;
-        padding-right: 20px;
-    }
-        nav.navbar .navbar-collapse ul.navbar-nav{
-            margin-left: 0px;
-        }
-            nav.navbar .navbar-collapse ul.navbar-nav li a{
-                color: #000;
-                font-size: 16px;
-                line-height: 18px;
-                border-radius: 3px;
-                padding: 3px 7px;
-                background-color: #fff;
-                margin: 0px 4px;
-            }
-            nav.navbar .navbar-collapse ul.navbar-nav li a:hover{
-                color: #0c0;
-            }
-                nav.navbar .navbar-collapse ul.navbar-nav li.active a, nav.navbar .navbar-collapse ul.navbar-nav li.active a:hover, nav.navbar .navbar-collapse ul.navbar-nav li.active a:focus{
-                    background-color: #e5dd8f;
-                    color: #678c40;
-                }
+
 
 
 

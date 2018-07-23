@@ -10,6 +10,22 @@ rainApp.config(function($routeProvider, localStorageServiceProvider){
 		templateUrl: 'public/templates/home.html',
 		controller: 'homeCtrl'
 	})
+    .when('/agree', {
+		templateUrl: 'public/templates/agree.html',
+        controller: 'usersCtrl'
+	})
+    .when('/signup', {
+		templateUrl: 'public/templates/signup.html',
+		controller: 'usersCtrl'
+	})
+    .when('/confirm/:confirm', {
+		templateUrl: 'public/templates/confirm.html',
+		controller: 'usersCtrl'
+	})
+    .when('/signin', {
+		templateUrl: 'public/templates/signin.html',
+		controller: 'usersCtrl'
+	})
     .when('/products', {
 		templateUrl: 'public/templates/products.html',
 		controller: 'productsCtrl'

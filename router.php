@@ -8,6 +8,9 @@ class Router{
 
 
     private $actions = [
+        'signup' => ['ctrl' => 'Users', 'method' => 'signup', 'access' => ['guest']],
+        'confirm' => ['ctrl' => 'Users', 'method' => 'confirm', 'access' => ['guest']],
+
         'getProducts' => ['ctrl' => 'Products', 'method' => 'getProducts', 'access' => ['user', 'admin']],
         'getProduct'  => ['ctrl' => 'Products', 'method' => 'getProduct',  'access' => ['user', 'admin']]
     ];
