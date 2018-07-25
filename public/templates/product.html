@@ -6,7 +6,7 @@
             <div class="product-page-title">{{product.title}}</div>
 			<div class="product-page-descr">{{product.descr}}</div>
             <div class="product-page-price">Ціна: {{product.price}} грн.</div>
-            <button class="btn btn-success product-page-buy pull-right">В кошик</button>
+            <button class="btn btn-success product-page-buy pull-right" ng-click="addToCart(product.id)">В кошик</button>
 			<div class="clearfix"></div>
         </div>
 	</div>

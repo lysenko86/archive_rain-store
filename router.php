@@ -15,6 +15,7 @@ class Router{
         'sendPasswordMail' => ['ctrl' => 'Users', 'method' => 'sendPasswordMail', 'access' => ['guest']],
         'reset'            => ['ctrl' => 'Users', 'method' => 'reset',            'access' => ['guest']],
         'logout'           => ['ctrl' => 'Users', 'method' => 'logout',           'access' => ['user', 'admin']],
+        'getProfile'       => ['ctrl' => 'Users', 'method' => 'getProfile',       'access' => ['user', 'admin']],
 
         'getProducts' => ['ctrl' => 'Products', 'method' => 'getProducts', 'access' => ['user', 'admin']],
         'getProduct'  => ['ctrl' => 'Products', 'method' => 'getProduct',  'access' => ['user', 'admin']]

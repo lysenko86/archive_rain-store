@@ -111,6 +111,9 @@ rainApp.service('usersServ', function(requestServ){
     this.logout = function(cb){
         requestServ.sendRequest('get', 'logout', {}, cb);
     }
+    this.getProfile = function(cb){
+        requestServ.sendRequest('get', 'getProfile', {}, cb);
+    }
 });
 
 

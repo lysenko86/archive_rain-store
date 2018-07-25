@@ -119,6 +119,21 @@ ul.navbar-nav{
     font-size: 16px;
 }
 
+.cart-block{
+    padding-top: 15px;
+    text-align: right;
+    cursor: pointer;
+}
+.cart-block-image{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url('../images/cart.png') no-repeat;
+}
+.cart-block-sum{
+    display: inline-block;
+}
+
 .footer{
     height: 50px;
     background-color: #fff;

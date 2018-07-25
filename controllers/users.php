@@ -147,5 +147,10 @@ class Users{
         $this->data['status'] = 'success';
         $this->data['msg']    = "Готово! Ви успішно вийшли зі свого аккаунту.";
     }
+    function getProfile(){
+        $this->data['arr']    = $this->db->query("SELECT *, DATE_FORMAT(`created`, '%d.%m.%Y') AS `created` FROM `users` WHERE `id` = ?", [$this->params['uid']]);
+        $this->data['arr']    = $this->data['arr'][0];
+        $this->data['status'] = 'success';
+    }
 }
 ?>

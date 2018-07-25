@@ -53,6 +53,15 @@ rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scop
 						messagesServ.showMessages(data.status, data.msg);
 					}
 				});
+			} else if ($location.path() === '/profile') {
+				usersServ.getProfile(function(data){
+					if (data.status == 'success'){
+						$scope.email   = data.arr.email;
+						$scope.created = data.arr.created;
+					} else{
+						messagesServ.showMessages(data.status, data.msg);
+					}
+				});
 			} else {
 				$location.url('home');
 			}
@@ -162,6 +171,9 @@ rainApp.controller('productsCtrl', function($location, $routeParams, $scope, mes
 	}
 	$scope.getProduct = function(id){
 		$location.url('product/' + id);
+	}
+	$scope.addToCart = function(id){
+		console.log('add id='+id+' to Cart');
 	}
 
 	this.init();
