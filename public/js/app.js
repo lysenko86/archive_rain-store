@@ -26,6 +26,18 @@ rainApp.config(function($routeProvider, localStorageServiceProvider){
 		templateUrl: 'public/templates/signin.html',
 		controller: 'usersCtrl'
 	})
+    .when('/password', {
+        templateUrl: 'public/templates/password.html',
+        controller: 'usersCtrl'
+    })
+    .when('/reset/:reset', {
+		templateUrl: 'public/templates/reset.html',
+		controller: 'usersCtrl'
+	})
+    .when('/logout', {
+		templateUrl: 'public/templates/logout.html',
+		controller: 'usersCtrl'
+	})
     .when('/products', {
 		templateUrl: 'public/templates/products.html',
 		controller: 'productsCtrl'

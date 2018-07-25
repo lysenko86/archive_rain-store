@@ -8,8 +8,13 @@ class Router{
 
 
     private $actions = [
-        'signup' => ['ctrl' => 'Users', 'method' => 'signup', 'access' => ['guest']],
-        'confirm' => ['ctrl' => 'Users', 'method' => 'confirm', 'access' => ['guest']],
+        'signup'           => ['ctrl' => 'Users', 'method' => 'signup',           'access' => ['guest']],
+        'confirm'          => ['ctrl' => 'Users', 'method' => 'confirm',          'access' => ['guest']],
+        'signin'           => ['ctrl' => 'Users', 'method' => 'signin',           'access' => ['guest']],
+        'sendConfirmMail'  => ['ctrl' => 'Users', 'method' => 'sendConfirmMail',  'access' => ['guest']],
+        'sendPasswordMail' => ['ctrl' => 'Users', 'method' => 'sendPasswordMail', 'access' => ['guest']],
+        'reset'            => ['ctrl' => 'Users', 'method' => 'reset',            'access' => ['guest']],
+        'logout'           => ['ctrl' => 'Users', 'method' => 'logout',           'access' => ['user', 'admin']],
 
         'getProducts' => ['ctrl' => 'Products', 'method' => 'getProducts', 'access' => ['user', 'admin']],
         'getProduct'  => ['ctrl' => 'Products', 'method' => 'getProduct',  'access' => ['user', 'admin']]

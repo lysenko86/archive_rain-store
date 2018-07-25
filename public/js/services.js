@@ -87,11 +87,29 @@ rainApp.service('usersServ', function(requestServ){
             confirm: confirm
         }, cb);
     }
+    this.sendConfirmMail = function(email, cb){
+        requestServ.sendRequest('post', 'sendConfirmMail', {
+            email: email
+        }, cb);
+    }
     this.signin = function(user, cb){
         requestServ.sendRequest('post', 'signin', {
             email:    user.email,
             password: user.password
         }, cb);
+    }
+    this.sendPasswordMail = function(email, cb){
+        requestServ.sendRequest('post', 'sendPasswordMail', {
+            email: email
+        }, cb);
+    }
+    this.reset = function(reset, cb){
+        requestServ.sendRequest('get', 'reset', {
+            reset: reset
+        }, cb);
+    }
+    this.logout = function(cb){
+        requestServ.sendRequest('get', 'logout', {}, cb);
     }
 });
 

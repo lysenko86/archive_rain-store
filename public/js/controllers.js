@@ -2,8 +2,14 @@
 
 
 
-rainApp.controller('menuCtrl', function($location, $scope){
+rainApp.controller('menuCtrl', function($location, $scope, localStorageService){
 	this.init = function(){
+		$scope.isAuth = localStorageService.get('token');
+		angular.element('nav.navbar li a:not(.dropdown-toggle)').click(function(){
+			if (angular.element('nav.navbar .navbar-collapse.collapse').hasClass('in')){
+				angular.element('nav.navbar .navbar-header button.navbar-toggle').click();
+			}
+		});
 	}
 	$scope.setActive = function(path){
 		return ($location.path().substr(0, path.length) === path) ? 'active' : '';
@@ -20,8 +26,7 @@ rainApp.controller('homeCtrl', function($location, $scope, messagesServ, product
 		productsServ.getProducts(function(data){
 			if (data.status == 'success'){
 				$scope.products = data.arr ? data.arr : [];
-			}
-			else{
+			} else{
 				messagesServ.showMessages(data.status, data.msg);
 			}
 		});
@@ -39,35 +44,45 @@ rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scop
 	this.init = function(){
 		$scope.isAuth = localStorageService.get('token');
 		if ($scope.isAuth){
-			$location.url('home');
-		}
-		$scope.user = {
-			email: '',
-			password: ''
-		};
-		$scope.auth = {
-			notConfirmed: false,
-			email: ''
-		};
-		if ($routeParams.confirm){
-			usersServ.confirm($routeParams.confirm, function(data){
-				messagesServ.showMessages(data.status, data.msg, 2000, function(){
-					$location.url('home');
+			if ($location.path() === '/logout'){
+				usersServ.logout(function(data){
+					if (data.status == 'success'){
+						localStorageService.remove('token');
+						$window.location.href = '/';
+					} else{
+						messagesServ.showMessages(data.status, data.msg);
+					}
 				});
-			});
+			} else {
+				$location.url('home');
+			}
+		} else {
+			$scope.user = {email: '', password: ''};
+			$scope.auth = {notConfirmed: false, email: ''};
+			if ($routeParams.confirm){
+				usersServ.confirm($routeParams.confirm, function(data){
+					messagesServ.showMessages(data.status, data.msg, 2000, function(){
+						$location.url('home');
+					});
+				});
+			}
+			if ($routeParams.password){
+				usersServ.reset($routeParams.password, function(data){
+					messagesServ.showMessages(data.status, data.msg, 2000, function(){
+						$location.url('home');
+					});
+				});
+			}
 		}
 	}
 	$scope.signup = function(){
 		if (!$scope.user.email || !$scope.user.password){
 			messagesServ.showMessages('error', 'Помилка! Поля "Email" та "Пароль" обов\'язкові для заповнення!');
-		}
-		else if (!/^\S+@\S+$/.test($scope.user.email)){
+		} else if (!/^\S+@\S+$/.test($scope.user.email)){
 			messagesServ.showMessages('error', 'Помилка! Значення поля "Email" має бути наступного формату: email@email.com!');
-		}
-		else if (!$scope.user.agree){
+		} else if (!$scope.user.agree){
 			messagesServ.showMessages('error', 'Помилка! Ви повинні прийняти умови користувацької угоди.');
-		}
-		else{
+		} else{
 			usersServ.signup($scope.user, function(data){
 				$scope.user.email = $scope.user.password = $scope.user.agree = '';
 				messagesServ.showMessages(data.status, data.msg, 6000, function(){
@@ -78,24 +93,41 @@ rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scop
 			});
 		}
 	}
+	$scope.sendConfirmMail = function(){
+		usersServ.sendConfirmMail($scope.auth.email, function(data){
+			$scope.auth.notConfirmed = false;
+			$scope.auth.email = '';
+			messagesServ.showMessages(data.status, data.msg);
+		});
+	}
 	$scope.signin = function(){
 		if (!$scope.user.email || !$scope.user.password){
 			$scope.auth.notConfirmed = false;
-			$scope.auth.email        = '';
+			$scope.auth.email = '';
 			messagesServ.showMessages('error', 'Помилка! Поля "Email" та "Пароль" обов\'язкові для заповнення!');
-		}
-		else{
+		} else{
 			usersServ.signin($scope.user, function(data){
 				$scope.user.password = '';
 				$scope.auth.notConfirmed = data.notConfirmed;
-				$scope.auth.email        = data.email;
+				$scope.auth.email = data.email;
 				if (data.status == 'success'){
 					localStorageService.set('token', data.arr.token);
 					$window.location.href = '/';
-				}
-				else{
+				} else{
 					messagesServ.showMessages(data.status, data.msg);
 				}
+            });
+		}
+	}
+	$scope.resetPassword = function(){
+		if (!$scope.email){
+			messagesServ.showMessages('error', 'Помилка! Поле "Email" обов\'язкове для заповнення!');
+		} else{
+			usersServ.sendPasswordMail($scope.email, function(data){
+				if (data.status == 'success'){
+					$scope.email = '';
+				}
+				messagesServ.showMessages(data.status, data.msg);
             });
 		}
 	}
