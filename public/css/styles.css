@@ -132,6 +132,8 @@ ul.navbar-nav{
 }
 .cart-block-sum{
     display: inline-block;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .footer{
