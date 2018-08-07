@@ -178,3 +178,36 @@ rainApp.controller('productsCtrl', function($location, $routeParams, $scope, mes
 
 	this.init();
 });
+
+
+
+rainApp.controller('cartCtrl', function($scope, localStorageService){
+	this.init = function(){
+		const isAuth = localStorageService.get('token');
+		const cart = localStorageService.get('cart');
+		const uid = isAuth ? isAuth.split('.')[0] : -1;
+		let userCart = false;
+		if (cart){
+			userCart = cart.map(item => {
+				if (item.uid == uid){
+					return item;
+				}
+			});
+		}
+		if (!isAuth && (!cart || !cart)){
+			localStorageService.set('cart', [{uid: -1, products: [], sum: 0}]);
+		}
+		if (!localStorageService.get('cart')){
+			localStorageService.set('cart', [{uid: -1, products: [], sum: 0}]);
+		}
+		$scope.isAuth = localStorageService.get('token');
+		if ($scope.isAuth){
+		localStorageService.set('cart', [{uid: -1, products: [], sum: 0}]);
+		$scope.sum = 0;
+	}
+	$scope.addToCart = function(id){
+		$location.url('product/' + id);
+	}
+
+	this.init();
+});
