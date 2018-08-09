@@ -3,14 +3,13 @@ rainApp.directive('addToCartButtonDirect', function(){
         restrict: 'E',
         replace: true,
         scope: {
-            productId: '@',
-            price: '@'
+            product: '@'
         },
-        controller: 'cartCtrl',
+        controller: 'cartsCtrl',
         template: [
             '<button ',
                 'class="btn btn-success catalog-product-buy pull-right" ',
-                'ng-click="addToCart(productId, price); $event.stopPropagation();"',
+                'ng-click="addToCart(product); $event.stopPropagation();"',
             '>',
                 'В кошик',
             '</button>'
@@ -21,9 +20,9 @@ rainApp.directive('addToCartButtonDirect', function(){
 rainApp.directive('cartBlockDirect', function(){
     return {
         restrict: 'A',
-        controller: 'cartCtrl',
+        controller: 'cartsCtrl',
         template: [
-            '<div class="cart-block-image"></div>',
+            '<a href="#/cart" class="cart-block-image"></a>',
             '<div class="cart-block-sum">{{cart.sum}} грн.</div>'
         ].join('')
     };

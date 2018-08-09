@@ -1,3 +1,3 @@
-rainApp.factory('cartFact', function(){
+rainApp.factory('cartsFact', function(){
     return {cart: {}};
 });

@@ -1,0 +1,24 @@
+<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages" ng-hide="formIsShown">{{message.text}}</div>
+<div class="row">
+	<div class="col-xs-12">
+        <div class="well" ng-if="!cart.products.length">Немає товарів</div>
+		<table class="table table-bordered table-hover" ng-if="cart.products.length">
+			<thead class="over-head"><tr>
+				<th width="80px">ID</th>
+				<th width="auto">Назва</th>
+				<th width="100px">Ціна</th>
+				<th width="80px">Кількість</th>
+			</tr></thead>
+			<tbody>
+				<tr ng-repeat="product in cart.products">
+					<td>{{product.id}}</td>
+					<td>{{product.title}}</td>
+					<td>{{product.price}}</td>
+					<td class="text-center"><input type="text" value="{{product.count}}" maxLength="3" class="cart-table-input-count"></td>
+				</tr>
+			</tbody>
+		</table>
+        <div>Всього: ххх</div>
+        <button class="btn btn-success">Оформити замовлення</button>
+	</div>
+</div>

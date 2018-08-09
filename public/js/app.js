@@ -50,6 +50,10 @@ rainApp.config(function($routeProvider, localStorageServiceProvider){
 		templateUrl: 'public/templates/product.html',
 		controller: 'productsCtrl'
 	})
+    .when('/cart', {
+		templateUrl: 'public/templates/cart.html',
+		controller: 'cartsCtrl'
+	})
 	.otherwise({
 		redirectTo: '/home'
 	});

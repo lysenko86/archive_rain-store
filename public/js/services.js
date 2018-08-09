@@ -132,16 +132,16 @@ rainApp.service('productsServ', function(requestServ){
 
 
 
-rainApp.service('cartServ', function(){
-    this.refreshCart = function(cart){
+rainApp.service('cartsServ', function(){
+    this.reorderCart = function(scopeCart){
         let sum = 0;
 		let newProducts = [];
 		let ids = [];
-		cart.products.map(item => {
+		scopeCart.products.map(item => {
 			if (ids.indexOf(item.id) > -1){
 				return false;
 			}
-			cart.products.map(subItem => {
+			scopeCart.products.map(subItem => {
 				if (item.id == subItem.id){
 					let index = -1;
 					for (let i=0; i<newProducts.length; i++){
@@ -160,20 +160,34 @@ rainApp.service('cartServ', function(){
 			});
 			ids.push(item.id);
 		});
-        return {
-            uid: cart.uid,
-            products: newProducts,
-            sum: sum
+        scopeCart.uid = scopeCart.uid;
+		scopeCart.products = newProducts;
+		scopeCart.sum = sum;
+    }
+    this.getCartByUid = function(carts, uid, scopeCart){
+        carts = carts.filter(item => item.uid == uid);
+        if (carts.length){
+            scopeCart.uid = carts[0].uid;
+    		scopeCart.products = carts[0].products;
+    		scopeCart.sum = carts[0].sum;
+            return true;
+        } else {
+            return false;
         }
     }
-    this.getIndexOfUserCart = function(arr, uid){
+    this.updateCartsArray = function(carts, uid, scopeCart){
         let index = -1;
-        for (let i=0; i<arr.length; i++){
-            if (arr[i].uid == uid){
+        for (let i=0; i<carts.length; i++){
+            if (carts[i].uid == uid){
                 index = i;
                 break;
             }
         }
-        return index;
+        if (index < 0){
+            carts.push(scopeCart);
+        } else {
+            carts[index] = scopeCart;
+        }
+        return carts;
     }
 });

@@ -5,7 +5,7 @@
 			<div class="catalog-product-title">{{product.title}}</div>
 			<div class="catalog-product-image"><img ng-src="public/images/products/{{product.image}}" alt="{{product.title}}"/></div>
 			<div class="catalog-product-price pull-left">{{product.price}} грн.</div>
-			<button class="btn btn-success catalog-product-buy pull-right" ng-click="addToCart(product.id); $event.stopPropagation();">В кошик</button>
+			<add-to-cart-button-direct product="{{product}}"></add-to-cart-button-direct>
 			<div class="clearfix"></div>
 		</div>
 	</div>

@@ -181,29 +181,35 @@ rainApp.controller('productsCtrl', function($location, $routeParams, $scope, mes
 
 
 
-rainApp.controller('cartCtrl', function($scope, localStorageService, cartServ, cartFact){
+rainApp.controller('cartsCtrl', function($scope, localStorageService, cartsServ, cartsFact){
 	this.init = function(){
 		const isAuth = localStorageService.get('token');
 		const uid = isAuth ? isAuth.split('.')[0] : -1;
-		if (!localStorageService.get('cart')){
-			localStorageService.set('cart', [{uid: uid, products: [], sum: 0}]);
+		$scope.cart = cartsFact.cart;
+
+		if (!localStorageService.get('carts')){
+			localStorageService.set('carts', []);
 		}
-		$scope.cart = cartFact.cart;
-		const cart = localStorageService.get('cart').filter(item => item.uid == uid)[0];
-		$scope.cart.uid = cart.uid;
-		$scope.cart.products = cart.products;
-		$scope.cart.sum = cart.sum;
+		if (!cartsServ.getCartByUid(localStorageService.get('carts'), uid, $scope.cart)){
+			const newCarts = cartsServ.updateCartsArray(localStorageService.get('carts'), uid, {
+				uid: uid,
+				products: [],
+				sum: 0
+			});
+			localStorageService.set('carts', newCarts);
+		}
 	}
-	$scope.addToCart = function(id, price){
-		$scope.cart.products.push({id: id, price: price, count: 1});
-		const cart = cartServ.refreshCart($scope.cart);
-		$scope.cart.uid = cart.uid;
-		$scope.cart.products = cart.products;
-		$scope.cart.sum = cart.sum;
-		const index = cartServ.getIndexOfUserCart(localStorageService.get('cart'), $scope.cart.uid);
-		const carts = localStorageService.get('cart');
-		carts[index] = $scope.cart;
-		localStorageService.set('cart', carts);
+	$scope.addToCart = function(product){
+		product = angular.fromJson(product);
+		$scope.cart.products.push({
+			id: product.id,
+			title: product.title,
+			price: product.price,
+			count: 1
+		});
+		cartsServ.reorderCart($scope.cart);
+		const newCarts = cartsServ.updateCartsArray(localStorageService.get('carts'), $scope.cart.uid, $scope.cart)
+		localStorageService.set('carts', newCarts);
 	}
 
 	this.init();
