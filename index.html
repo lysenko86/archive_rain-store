@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="public/libs/angular/angular-local-storage.min.js"></script>
 	<script type="text/javascript" src="public/js/app.js"></script>
 	<script type="text/javascript" src="public/js/services.js"></script>
+	<script type="text/javascript" src="public/js/factories.js"></script>
 	<script type="text/javascript" src="public/js/directives.js"></script>
 	<script type="text/javascript" src="public/js/controllers.js"></script>
   <title>Rain</title>
@@ -50,10 +51,7 @@
 	<div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <div class="cart-block" ng-controller="cartCtrl">
-					<div class="cart-block-image"></div>
-					<div class="cart-block-sum">{{sum}} грн.</div>
-				</div>
+                <div class="cart-block" cart-block-direct></div>
 			</div>
         </div>
     </div>

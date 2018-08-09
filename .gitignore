@@ -1,3 +1,7 @@
 ad_rain.sql
 access.log
 error.log
+node_modules
+
+server.js
+package-lock.json

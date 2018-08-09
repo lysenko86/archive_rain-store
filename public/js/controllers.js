@@ -181,18 +181,29 @@ rainApp.controller('productsCtrl', function($location, $routeParams, $scope, mes
 
 
 
-rainApp.controller('cartCtrl', function($scope, $element, $attrs, localStorageService){
+rainApp.controller('cartCtrl', function($scope, localStorageService, cartServ, cartFact){
 	this.init = function(){
-		if (!localStorageService.get('cart')){
-			localStorageService.set('cart', [{uid: -1, products: [], sum: 0}]);
-		}
 		const isAuth = localStorageService.get('token');
 		const uid = isAuth ? isAuth.split('.')[0] : -1;
+		if (!localStorageService.get('cart')){
+			localStorageService.set('cart', [{uid: uid, products: [], sum: 0}]);
+		}
+		$scope.cart = cartFact.cart;
 		const cart = localStorageService.get('cart').filter(item => item.uid == uid)[0];
+		$scope.cart.uid = cart.uid;
+		$scope.cart.products = cart.products;
+		$scope.cart.sum = cart.sum;
 	}
-	$scope.addToCart = function(id){
-		//$location.url('product/' + id);
-		console.log('add to cart ' + id);
+	$scope.addToCart = function(id, price){
+		$scope.cart.products.push({id: id, price: price, count: 1});
+		const cart = cartServ.refreshCart($scope.cart);
+		$scope.cart.uid = cart.uid;
+		$scope.cart.products = cart.products;
+		$scope.cart.sum = cart.sum;
+		const index = cartServ.getIndexOfUserCart(localStorageService.get('cart'), $scope.cart.uid);
+		const carts = localStorageService.get('cart');
+		carts[index] = $scope.cart;
+		localStorageService.set('cart', carts);
 	}
 
 	this.init();

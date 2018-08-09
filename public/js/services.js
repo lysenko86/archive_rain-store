@@ -129,3 +129,51 @@ rainApp.service('productsServ', function(requestServ){
         }, cb);
     }
 });
+
+
+
+rainApp.service('cartServ', function(){
+    this.refreshCart = function(cart){
+        let sum = 0;
+		let newProducts = [];
+		let ids = [];
+		cart.products.map(item => {
+			if (ids.indexOf(item.id) > -1){
+				return false;
+			}
+			cart.products.map(subItem => {
+				if (item.id == subItem.id){
+					let index = -1;
+					for (let i=0; i<newProducts.length; i++){
+						if (newProducts[i].id == item.id){
+							index = i;
+						}
+					}
+					if (index < 0){
+						newProducts.push(item);
+						sum += Math.round(item.price * item.count);
+					} else {
+						newProducts[index].count += subItem.count;
+						sum += Math.round(subItem.price * subItem.count);
+					}
+				}
+			});
+			ids.push(item.id);
+		});
+        return {
+            uid: cart.uid,
+            products: newProducts,
+            sum: sum
+        }
+    }
+    this.getIndexOfUserCart = function(arr, uid){
+        let index = -1;
+        for (let i=0; i<arr.length; i++){
+            if (arr[i].uid == uid){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+});
