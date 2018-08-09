@@ -2,9 +2,7 @@ rainApp.directive('addToCartButtonDirect', function(){
     return {
         restrict: 'E',
         replace: true,
-        scope: {
-            product: '@'
-        },
+        scope: {product: '@'},
         controller: 'cartsCtrl',
         template: [
             '<button ',
