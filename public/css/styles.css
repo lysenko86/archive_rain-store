@@ -144,6 +144,15 @@ table thead{
     width: 40px;
     text-align: center;
 }
+.cart-table-total-sum{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 86px;
+}
+.cart-table-total-sum span{
+    padding-left: 15px;
+}
 
 .footer{
     height: 50px;

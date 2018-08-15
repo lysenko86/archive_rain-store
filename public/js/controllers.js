@@ -186,6 +186,9 @@ rainApp.controller('cartsCtrl', function($scope, localStorageService, cartsServ,
 		const isAuth = localStorageService.get('token');
 		const uid = isAuth ? isAuth.split('.')[0] : -1;
 		$scope.cart = cartsFact.cart;
+		setTimeout(function(){
+			console.log($scope.cart);
+		}, 3000);
 
 		if (!localStorageService.get('carts')){
 			localStorageService.set('carts', []);
