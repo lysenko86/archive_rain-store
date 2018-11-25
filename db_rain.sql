@@ -1,141 +1,111 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Час створення: Лип 15 2018 р., 22:35
--- Версія сервера: 5.7.22-0ubuntu0.16.04.1
--- Версія PHP: 5.6.36-1+ubuntu16.04.1+deb.sury.org+1
+-- Время создания: Ноя 26 2018 г., 01:09
+-- Версия сервера: 5.6.34
+-- Версия PHP: 5.3.10-1ubuntu3.26
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- База даних: `db_rain`
+-- База данных: `db_rain`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `orders`
+-- Структура таблицы `orders`
 --
 
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
-  `created` date NOT NULL,
-  `price` float(10,2) NOT NULL,
+  `created` timestamp NULL DEFAULT NULL,
+  `status` enum('confirming','preparing','delivering','done') NOT NULL,
+  `fio` varchar(300) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `delivery` enum('novaposhta','intime') NOT NULL,
+  `city` varchar(300) NOT NULL,
+  `department` varchar(300) NOT NULL,
+  `payType` enum('card','cash') NOT NULL,
   `comment` varchar(500) NOT NULL,
-  `status` enum('confirming','buying','delivering','done') NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `sum` float(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `orders_products`
+-- Структура таблицы `orders_products`
 --
 
-CREATE TABLE `orders_products` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `orders_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `oid` int(11) NOT NULL COMMENT 'Order ID',
   `pid` int(11) NOT NULL COMMENT 'Product ID',
   `price` float(10,2) NOT NULL,
-  `count` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `count` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `products`
+-- Структура таблицы `products`
 --
 
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(400) NOT NULL,
   `descr` text NOT NULL,
-  `price` float(10,2) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `image` varchar(30) NOT NULL,
+  `price` float(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `products`
+--
+
+INSERT INTO `products` (`id`, `title`, `descr`, `image`, `price`) VALUES
+(1, 'Rain Soul', '<h4><strong>Rain Soul - відновлення організму.</strong></h4><p><strong>Rain Soul</strong> - це потужне джерело природної енергії. Поживні речовини, що містяться в <strong>Soul</strong>, є життєво важливими для людини, її здоровʼя, ясності розуму й активного способу життя. В одному соше міститься 8990 антиоксидантів і добова норма вітамінів, мінералів, Омеги-3, -6, -9. Завдяки своїй унікальній формулі <strong>Rain Soul</strong> відновлює організм на клітинному рівні.</p><strong>14 причин вживати SOUL:</strong><p>1. Ефективно впливає на запальні процеси в організмі.<br/>2. Нормалізує обмін речовин.<br/>3. Прискорює процеси регенерації.<br/>4. Підвищує рівень енергії, працездатність і витривалість.<br/>5. Нейтралізує пошкодження від вільних радикалів.<br/>6. Підтримує серцево-судинну систему.<br/>7. Сприяє досягненню оптимальної ваги.<br/>8. Полегшує біль в мʼязах після тренувань.<br/>9. Покращує реологію крові.<br/>10. Зміцнює тонус шкіри.<br/>11. Відновлює імунітет.<br/>12. Джерело ресвератролу.<br/>13. Покращує самопочуття.<br/>14. Безпечний для людей будь-якого віку.</p>', 'soul.jpg', 80.00),
+(2, 'Rain Core', '<h4><strong>Rain Core - детоксикація організму.</strong></h4><p><strong>Rain Core</strong> сприяє здоровому функціонуванню внутрішніх органів людини. Завдяки збалансованому поєднанню інгредієнтів <strong>Core</strong> покращує роботу шлунково-кишкового тракту, імунної системи, кровообігу та лімфатичної системи, прискорює очищення організму від токсинів. <strong>Rain Core</strong> мʼяко очищає організм і містить рекордну кількість антиоксидантів - 10850 одиниць.</p><strong>14 причин вживати CORE:</strong><p>1. Відновлює імунітет.<br/>2. Покращує функціонування і нормалізує мікрофлору шлунково-кишкового тракту.<br/>3. Очищає організм від солей важких металів, здійснює детоксикацію на клітинному рівні.<br/>4. Нормалізує обмін речовин.<br/>5. Захищає клітини від руйнівної дії вільних радикалів, містить рекордну кількість антиоксидантів.<br/>6. Має антивірусну та антипаразитну дію.<br/>7. Нормалізує рівень гемоглобіну.<br/>8. Регулює ліпідний і вуглеводний обмін.<br/>9. Сприяє відновленню роботи печінки, прибирає "поганий холестерин".<br/>10. Нормалізує рівень цукру в крові.<br/>11. Коригує вагу, відновлює мʼязовий тонус.<br/>12. Швидко виводить молочну кислоту з мʼязів після тренувань.<br/>13. Виступає природним джерелом йоду.<br/>14. Сприяє швидкому загоєнню ран і усуненню запальних процесів.</p>', 'core.jpg', 90.00),
+(3, 'Rain Bend', '<h4><strong>Rain Bend - гнучкість і здоровʼя.</strong></h4><p><strong>Rain Bend</strong> перш за все необхідний людям, які мають захворювання кістково-мʼязової системи, а також тим, хто регулярно стикається з надмірними фізичними навантаженнями (спортсмени). Продукт пришвидшує відновлення хрящевої тканини, необхідної для здорової роботи суглобів та хребта, сприяє активному відновленню сполучної тканини, поліпшує кровообіг.</p><strong>14 причин вживати BEND:</strong><p>1. Уповільнює розвиток запальних процесів у суглобах, звʼязках і сухожиллях.<br/>2. Усуває болі в суглобах і хребті.<br/>3. Регенерує і прискорює ріст хрящової тканини.<br/>4. Онкопротектор.<br/>5. Стимулює обмін речовин.<br/>6. Перешкоджає дегенеративному порушенню і руйнуванню кісткової, мʼязової та сполучної тканини.<br/>7. Регулює рівень холестерину в крові.<br/>8. Має антипаразитарні властивості.<br/>9. Сприяє покращенню рухливості суглобів і зменшенню болю в колінах, ліктях, хребті.<br/>10. Має загальну протизапальну дію.<br/>11. Містить весь необхідний вітамінно-мінеральний комплекс для підтримки здоровʼя кістково-мʼязової системи.<br/>12. Складається виключно з рослинних інгредієнтів.<br/>13. Легко засвоюється, не має побічних дій на організм.<br/>14. Виступає потужним хондопротектором.</p>', 'bend.jpg', 100.00),
+(4, 'Rain Soul Pack', '<h4><strong>Rain Soul - відновлення організму.</strong></h4><p><strong>Rain Soul</strong> - це потужне джерело природної енергії. Поживні речовини, що містяться в <strong>Soul</strong>, є життєво важливими для людини, її здоровʼя, ясності розуму й активного способу життя. В одному соше міститься 8990 антиоксидантів і добова норма вітамінів, мінералів, Омеги-3, -6, -9. Завдяки своїй унікальній формулі <strong>Rain Soul</strong> відновлює організм на клітинному рівні. <strong>Коробка містить 30 соше.</strong></p><strong>14 причин вживати SOUL:</strong><p>1. Ефективно впливає на запальні процеси в організмі.<br/>2. Нормалізує обмін речовин.<br/>3. Прискорює процеси регенерації.<br/>4. Підвищує рівень енергії, працездатність і витривалість.<br/>5. Нейтралізує пошкодження від вільних радикалів.<br/>6. Підтримує серцево-судинну систему.<br/>7. Сприяє досягненню оптимальної ваги.<br/>8. Полегшує біль в мʼязах після тренувань.<br/>9. Покращує реологію крові.<br/>10. Зміцнює тонус шкіри.<br/>11. Відновлює імунітет.<br/>12. Джерело ресвератролу.<br/>13. Покращує самопочуття.<br/>14. Безпечний для людей будь-якого віку.</p>', 'soulpack.jpg', 2400.00),
+(5, 'Rain Core Pack', '<h4><strong>Rain Core - детоксикація організму.</strong></h4><p><strong>Rain Core</strong> сприяє здоровому функціонуванню внутрішніх органів людини. Завдяки збалансованому поєднанню інгредієнтів <strong>Core</strong> покращує роботу шлунково-кишкового тракту, імунної системи, кровообігу та лімфатичної системи, прискорює очищення організму від токсинів. <strong>Rain Core</strong> мʼяко очищає організм і містить рекордну кількість антиоксидантів - 10850 одиниць. <strong>Коробка містить 30 соше.</strong></p><strong>14 причин вживати CORE:</strong><p>1. Відновлює імунітет.<br/>2. Покращує функціонування і нормалізує мікрофлору шлунково-кишкового тракту.<br/>3. Очищає організм від солей важких металів, здійснює детоксикацію на клітинному рівні.<br/>4. Нормалізує обмін речовин.<br/>5. Захищає клітини від руйнівної дії вільних радикалів, містить рекордну кількість антиоксидантів.<br/>6. Має антивірусну та антипаразитну дію.<br/>7. Нормалізує рівень гемоглобіну.<br/>8. Регулює ліпідний і вуглеводний обмін.<br/>9. Сприяє відновленню роботи печінки, прибирає "поганий холестерин".<br/>10. Нормалізує рівень цукру в крові.<br/>11. Коригує вагу, відновлює мʼязовий тонус.<br/>12. Швидко виводить молочну кислоту з мʼязів після тренувань.<br/>13. Виступає природним джерелом йоду.<br/>14. Сприяє швидкому загоєнню ран і усуненню запальних процесів.</p>', 'corepack.jpg', 2700.00),
+(6, 'Rain Bend Pack', '<h4><strong>Rain Bend - гнучкість і здоровʼя.</strong></h4><p><strong>Rain Bend</strong> перш за все необхідний людям, які мають захворювання кістково-мʼязової системи, а також тим, хто регулярно стикається з надмірними фізичними навантаженнями (спортсмени). Продукт пришвидшує відновлення хрящевої тканини, необхідної для здорової роботи суглобів та хребта, сприяє активному відновленню сполучної тканини, поліпшує кровообіг. <strong>Коробка містить 30 соше.</strong></p><strong>14 причин вживати BEND:</strong><p>1. Уповільнює розвиток запальних процесів у суглобах, звʼязках і сухожиллях.<br/>2. Усуває болі в суглобах і хребті.<br/>3. Регенерує і прискорює ріст хрящової тканини.<br/>4. Онкопротектор.<br/>5. Стимулює обмін речовин.<br/>6. Перешкоджає дегенеративному порушенню і руйнуванню кісткової, мʼязової та сполучної тканини.<br/>7. Регулює рівень холестерину в крові.<br/>8. Має антипаразитарні властивості.<br/>9. Сприяє покращенню рухливості суглобів і зменшенню болю в колінах, ліктях, хребті.<br/>10. Має загальну протизапальну дію.<br/>11. Містить весь необхідний вітамінно-мінеральний комплекс для підтримки здоровʼя кістково-мʼязової системи.<br/>12. Складається виключно з рослинних інгредієнтів.<br/>13. Легко засвоюється, не має побічних дій на організм.<br/>14. Виступає потужним хондопротектором.</p>', 'bendpack.jpg', 3000.00);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `users`
+-- Структура таблицы `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `rid` int(11) NOT NULL COMMENT 'Rain ID',
-  `name` varchar(50) NOT NULL,
-  `surname` varchar(50) NOT NULL,
-  `phone` varchar(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` varchar(20) NOT NULL DEFAULT '' COMMENT 'Rain ID',
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `surname` varchar(50) NOT NULL DEFAULT '',
+  `phone` varchar(30) NOT NULL DEFAULT '',
   `email` varchar(200) NOT NULL,
   `password` varchar(32) NOT NULL,
   `confirm` tinyint(4) NOT NULL DEFAULT '0',
   `token` varchar(32) NOT NULL DEFAULT '',
   `created` timestamp NULL DEFAULT NULL,
-  `role` enum('admin','manager','user','') NOT NULL DEFAULT 'user'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `role` enum('guest','user','manager','admin') NOT NULL DEFAULT 'user',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Індекси збережених таблиць
---
-
---
--- Індекси таблиці `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Індекси таблиці `orders_products`
---
-ALTER TABLE `orders_products`
-  ADD PRIMARY KEY (`id`);
-
---
--- Індекси таблиці `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
-
---
--- Індекси таблиці `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `rid` (`rid`);
-
---
--- AUTO_INCREMENT для збережених таблиць
---
-
---
--- AUTO_INCREMENT для таблиці `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблиці `orders_products`
---
-ALTER TABLE `orders_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблиці `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблиці `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

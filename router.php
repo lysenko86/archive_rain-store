@@ -2,8 +2,8 @@
 class Router{
     private $action     = 'none';
     private $params     = [];
-    private $user       = [];
-    private $superToken = 'bAYOBNDFC1oiI46TkEOfyafJQymccGHJGThEl6dp0moFK3ksZNg220HHosl3rukt';
+    private $userRole   = '';
+    private $adminToken = 'bAYOBNDFC1oiI46TkEOfyafJQymccGHJGThEl6dp0moFK3ksZNg220HHosl3rukt';
 
 
 
@@ -14,11 +14,16 @@ class Router{
         'sendConfirmMail'  => ['ctrl' => 'Users', 'method' => 'sendConfirmMail',  'access' => ['guest']],
         'sendPasswordMail' => ['ctrl' => 'Users', 'method' => 'sendPasswordMail', 'access' => ['guest']],
         'reset'            => ['ctrl' => 'Users', 'method' => 'reset',            'access' => ['guest']],
-        'logout'           => ['ctrl' => 'Users', 'method' => 'logout',           'access' => ['user', 'admin']],
-        'getProfile'       => ['ctrl' => 'Users', 'method' => 'getProfile',       'access' => ['user', 'admin']],
+        'logout'           => ['ctrl' => 'Users', 'method' => 'logout',           'access' => ['user', 'manager', 'admin']],
+        'getProfile'       => ['ctrl' => 'Users', 'method' => 'getProfile',       'access' => ['user', 'manager', 'admin']],
 
-        'getProducts' => ['ctrl' => 'Products', 'method' => 'getProducts', 'access' => ['user', 'admin']],
-        'getProduct'  => ['ctrl' => 'Products', 'method' => 'getProduct',  'access' => ['user', 'admin']]
+        'getProducts' => ['ctrl' => 'Products', 'method' => 'getProducts', 'access' => ['guest', 'user', 'manager', 'admin']],
+        'getProduct'  => ['ctrl' => 'Products', 'method' => 'getProduct',  'access' => ['guest', 'user', 'manager', 'admin']],
+
+        'createOrder'       => ['ctrl' => 'Orders', 'method' => 'createOrder',       'access' => ['guest', 'user', 'manager', 'admin']],
+        'getOrders'         => ['ctrl' => 'Orders', 'method' => 'getOrders',         'access' => ['user', 'manager', 'admin']],
+        'getOrderProducts'  => ['ctrl' => 'Orders', 'method' => 'getOrderProducts',  'access' => ['user', 'manager', 'admin']],
+        'changeOrderStatus' => ['ctrl' => 'Orders', 'method' => 'changeOrderStatus', 'access' => ['manager', 'admin']]
     ];
 
 
@@ -52,28 +57,23 @@ class Router{
     }
     function checkAccess(&$db){
         if (!$this->params['token']){
-            array_push($this->user, 'guest');
+            $this->userRole = 'guest';
         }
-        if ($this->params['token']){
+        else{
             $token = explode('.', $this->params['token']);
-            $user  = $db->query("SELECT `id`, `admin` FROM `users` WHERE `id` = ? AND `token` = ?", [$token[0], $token[1]]);
-            if ($user['id']){
-                array_push($this->user, 'user');
+            $user  = $db->query("SELECT `id`, `role` FROM `users` WHERE `id` = ? AND `token` = ?", [$token[0], $token[1]]);
+            $user = $user[0];
+            if (!$user['id']){
+                $this->userRole = 'guest';
             }
-            if ($user['admin']){
-                array_push($this->user, 'admin');
-            }
-            if ($this->params['token'] == $this->superToken){
-                array_push($this->user, 'super');
+            elseif ($user['id']){
+                $this->userRole = $user['role'];
             }
         }
-        $access = true;
-        foreach ($this->user as $v){
-            if (!in_array($v, $this->actions[$this->action]['access'])){
-                $access = false;
-            }
+        if ($this->params['token'] == $this->adminToken){
+            $this->userRole = 'admin';
         }
-        return $access;
+        return in_array($this->userRole, $this->actions[$this->action]['access']);
     }
 
 

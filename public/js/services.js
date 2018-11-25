@@ -3,7 +3,9 @@
 var isDev  = location.href.indexOf('/rain/') > -1;
 var config = {
     isDev : isDev,
-    api: isDev ? 'http://rain/api.php' : 'http://rainstore.com.ua/api.php'
+    api: isDev ? 'http://rain/api.php' : 'http://rainstore.com.ua/api.php',
+    smsLink: 'https://alphasms.ua/api/http.php',
+    smsKey: '3f7dfef5ab1db7fe0a167d75025574543c7f85e7'
 };
 
 
@@ -74,6 +76,17 @@ rainApp.service('requestServ', function($http, localStorageService, messagesServ
 
 
 
+rainApp.service('smsServ', function($http){
+    this.sendSMStoStore = function(message){
+        $http.get(config.smsLink + '?version=http&key=' + config.smsKey + '&command=send&from=RainStore&to=+380686178656&message=' + message);
+    }
+    this.sendSMStoClient = function(phone, message){
+        $http.get(config.smsLink + '?version=http&key=' + config.smsKey + '&command=send&from=RainStore&to=' + phone + '&message=' + message);
+    }
+});
+
+
+
 rainApp.service('usersServ', function(requestServ){
     this.signup = function(user, cb){
         requestServ.sendRequest('post', 'signup', {
@@ -122,7 +135,6 @@ rainApp.service('productsServ', function(requestServ){
     this.getProducts = function(cb){
         requestServ.sendRequest('get', 'getProducts', {}, cb);
     }
-
     this.getProduct = function(id, cb){
         requestServ.sendRequest('get', 'getProduct', {
             id: id
@@ -189,5 +201,46 @@ rainApp.service('cartsServ', function(){
             carts[index] = scopeCart;
         }
         return carts;
+    }
+    this.removeCartByUid = function(carts, uid){
+        return carts.filter(cart => cart.uid != uid);
+    }
+});
+
+
+
+rainApp.service('ordersServ', function(requestServ){
+    this.createOrder = function(order, cb){
+        requestServ.sendRequest('post', 'createOrder', {
+            fio: order.fio,
+            phone: order.phone,
+            delivery: order.delivery,
+            city: order.city,
+            department: order.department,
+            comment: order.comment,
+            payType: order.payType,
+            sum: order.sum,
+            products: angular.toJson(order.products)
+        }, cb);
+    }
+    this.getOrders = function(uid, cb){
+        const params = {};
+        if (typeof(uid) === 'function'){
+            cb = uid;
+        } else {
+            params.userId = uid;
+        }
+        requestServ.sendRequest('get', 'getOrders', params, cb);
+    }
+    this.getOrderProducts = function(id, cb){
+        requestServ.sendRequest('get', 'getOrderProducts', {
+            id: id
+        }, cb);
+    }
+    this.changeOrderStatus = function(oid, status, cb){
+        requestServ.sendRequest('post', 'changeOrderStatus', {
+            oid: oid,
+            status: status
+        }, cb);
     }
 });

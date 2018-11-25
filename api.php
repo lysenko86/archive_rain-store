@@ -4,6 +4,7 @@
 
     require_once('controllers/users.php');
     require_once('controllers/products.php');
+    require_once('controllers/orders.php');
 
 
 

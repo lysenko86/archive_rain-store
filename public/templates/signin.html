@@ -1,6 +1,6 @@
 <div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages">{{message.text}}</div>
 <div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="panel panel-default">
             <div class="panel-heading">Авторизація</div>
             <div class="panel-body">
@@ -18,7 +18,7 @@
                         <a href="#/signup" class="btn btn-link pull-right">Зареєструватися</a>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="form-group" ng-show="auth.notConfirmed">
+                    <div class="form-group text-center" ng-show="auth.notConfirmed">
                         <button type="button" class="btn btn-link" ng-click="sendConfirmMail()">Послати листа для підтвердження Email щє раз</button>
                     </div>
                     <div class="text-center">

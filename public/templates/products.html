@@ -1,4 +1,4 @@
-<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages" ng-hide="formIsShown">{{message.text}}</div>
+<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages">{{message.text}}</div>
 <div class="row">
 	<div class="col-xs-12 text-center">
 		<div class="catalog-product" ng-repeat="product in products" ng-click="getProduct(product.id)">

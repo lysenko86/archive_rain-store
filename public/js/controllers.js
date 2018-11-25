@@ -58,6 +58,7 @@ rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scop
 					if (data.status == 'success'){
 						$scope.email   = data.arr.email;
 						$scope.created = data.arr.created;
+						$scope.role = data.arr.role;
 					} else{
 						messagesServ.showMessages(data.status, data.msg);
 					}
@@ -80,6 +81,13 @@ rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scop
 					messagesServ.showMessages(data.status, data.msg, 2000, function(){
 						$location.url('home');
 					});
+				});
+			}
+			if ($location.path() === '/profile') {
+				usersServ.getProfile(function(data){
+					if (data.status === 'error'){
+						messagesServ.showMessages(data.status, data.msg);
+					}
 				});
 			}
 		}
@@ -172,23 +180,17 @@ rainApp.controller('productsCtrl', function($location, $routeParams, $scope, mes
 	$scope.getProduct = function(id){
 		$location.url('product/' + id);
 	}
-	$scope.addToCart = function(id){
-		console.log('add id='+id+' to Cart');
-	}
 
 	this.init();
 });
 
 
 
-rainApp.controller('cartsCtrl', function($scope, localStorageService, cartsServ, cartsFact){
+rainApp.controller('cartsCtrl', function($scope, $window, localStorageService, messagesServ, cartsServ, ordersServ, smsServ, cartsFact){
 	this.init = function(){
 		const isAuth = localStorageService.get('token');
 		const uid = isAuth ? isAuth.split('.')[0] : -1;
 		$scope.cart = cartsFact.cart;
-		setTimeout(function(){
-			console.log($scope.cart);
-		}, 3000);
 
 		if (!localStorageService.get('carts')){
 			localStorageService.set('carts', []);
@@ -201,6 +203,16 @@ rainApp.controller('cartsCtrl', function($scope, localStorageService, cartsServ,
 			});
 			localStorageService.set('carts', newCarts);
 		}
+		$scope.orderStatus = 0;
+		$scope.order = {
+			fio: '',
+			phone: '',
+			delivery: '',
+			city: '',
+			department: '',
+			comment: '',
+			payType: ''
+		};
 	}
 	$scope.addToCart = function(product){
 		product = angular.fromJson(product);
@@ -213,6 +225,170 @@ rainApp.controller('cartsCtrl', function($scope, localStorageService, cartsServ,
 		cartsServ.reorderCart($scope.cart);
 		const newCarts = cartsServ.updateCartsArray(localStorageService.get('carts'), $scope.cart.uid, $scope.cart)
 		localStorageService.set('carts', newCarts);
+	}
+	$scope.removeFromCart = function(productId){
+		$scope.cart.products = $scope.cart.products.filter(product => product.id !== productId);
+		cartsServ.reorderCart($scope.cart);
+		const newCarts = cartsServ.updateCartsArray(localStorageService.get('carts'), $scope.cart.uid, $scope.cart)
+		localStorageService.set('carts', newCarts);
+	}
+	$scope.changeCountOfCartItem = function(index, keyCode){
+		switch (keyCode){
+			case 38: $scope.cart.products[index].count++; break;
+			case 40:
+				if ($scope.cart.products[index].count > 1){
+					$scope.cart.products[index].count--;
+				}
+			break;
+			case 49: $scope.cart.products[index].count = 1; break;
+			case 50: $scope.cart.products[index].count = 2; break;
+			case 51: $scope.cart.products[index].count = 3; break;
+			case 52: $scope.cart.products[index].count = 4; break;
+			case 53: $scope.cart.products[index].count = 5; break;
+			case 54: $scope.cart.products[index].count = 6; break;
+			case 55: $scope.cart.products[index].count = 7; break;
+			case 56: $scope.cart.products[index].count = 8; break;
+			case 57: $scope.cart.products[index].count = 9; break;
+			default: $scope.cart.products[index].count = 1; break;
+		}
+		cartsServ.reorderCart($scope.cart);
+		const newCarts = cartsServ.updateCartsArray(localStorageService.get('carts'), $scope.cart.uid, $scope.cart)
+		localStorageService.set('carts', newCarts);
+	}
+	$scope.createOrder = function(step){
+		if (step === 'enterData'){
+			$scope.orderStatus++;
+		} else if (step === 'sendData'){
+			if (!$scope.order.fio || !$scope.order.phone || !$scope.order.delivery || !$scope.order.city || !$scope.order.department || !$scope.order.payType){
+				messagesServ.showMessages('error', 'Помилка! Поля "Прізвищє Імʼя По-батькові", "Телефон", "Сервіс доставки", "Місто відправки", "Відділення №" та "Форма оплати" обов\'язкові для заповнення!');
+			} else if (!/^\+380\d{9}$/.test($scope.order.phone)){
+				messagesServ.showMessages('error', 'Помилка! Значення поля "Телефон" має бути наступного формату: +380XXXXXXXXX!');
+			} else{
+				$scope.order.sum = $scope.cart.sum;
+				$scope.order.products = $scope.cart.products;
+				ordersServ.createOrder($scope.order, function(data){
+					if (data.status == 'success'){
+						$scope.orderStatus++;
+						smsServ.sendSMStoStore('Нове замовлення: ' + $scope.order.sum + 'грн, ' + $scope.order.phone + ', ' + $scope.order.fio);
+						smsServ.sendSMStoClient($scope.order.phone, 'Замовлення на суму ' + $scope.order.sum + 'грн. успішно оформлене. Дякуємо!');
+					}
+					messagesServ.showMessages(data.status, data.msg, $scope.order.payType === 'card' ? 5000 : 3000, function(){
+						if (data.status == 'success'){
+							const newCarts = cartsServ.removeCartByUid(localStorageService.get('carts'), $scope.cart.uid);
+							localStorageService.set('carts', newCarts);
+							if ($scope.order.payType === 'card'){
+								$window.location.href = 'https://www.liqpay.ua/ru/checkout/rainstore';
+							} else{
+								$window.location.href = '#/home';
+							}
+						}
+					});
+				});
+			}
+		}
+
+	}
+
+	this.init();
+});
+
+
+
+rainApp.controller('ordersCtrl', function($scope, localStorageService, messagesServ, ordersServ, usersServ){
+	this.init = function(){
+		$scope.isAuth = localStorageService.get('token');
+		$scope.deliveries = {
+			intime: 'ІнТайм',
+			novaposhta: 'Нова Пошта'
+		}
+		$scope.statuses = {
+			confirming: 'Очікує підтвердження',
+			preparing: 'Готується до відправки',
+			delivering: 'Відправлено',
+			done: 'Завершено'
+		}
+		$scope.payTypes = {
+			cash: 'Готівка',
+			card: 'Карта'
+		}
+		$scope.orders = [];
+		$scope.user = {};
+		if ($scope.isAuth){
+			usersServ.getProfile(function(data){
+				if (data.status == 'success'){
+					$scope.user.id = data.arr['id'];
+					$scope.user.role = data.arr['role'];
+					if ($scope.user.role === 'user'){
+						ordersServ.getOrders($scope.user.id, function(data){
+							if (data.status == 'success'){
+								$scope.orders = data.arr ? data.arr : [];
+							} else{
+								messagesServ.showMessages(data.status, data.msg);
+							}
+						});
+					} else if ($scope.user.role === 'manager'){
+						ordersServ.getOrders(function(data){
+							if (data.status == 'success'){
+								data.arr            = data.arr ? data.arr : [];
+								$scope.orders       = [];
+								$scope.guestOrders  = [];
+								$scope.restOfOrders = [];
+								data.arr.map(order => {
+									if (order.uid === '-1'){
+										$scope.guestOrders.push(order);
+									} else if (order.uid === $scope.user.id){
+										$scope.orders.push(order);
+									} else {
+										$scope.restOfOrders.push(order);
+									}
+								});
+							} else{
+								messagesServ.showMessages(data.status, data.msg);
+							}
+						});
+					}
+				} else{
+					messagesServ.showMessages(data.status, data.msg);
+				}
+			});
+		} else {
+			ordersServ.getOrders('-1', function(data){
+				if (data.status === 'error'){
+					messagesServ.showMessages(data.status, data.msg);
+				}
+			});
+		}
+	}
+	$scope.getOrderProducts = function(id){
+		ordersServ.getOrderProducts(id, function(data){
+			if (data.status == 'success'){
+				$scope.orderProducts = data.arr ? data.arr : [];
+			} else{
+				messagesServ.showMessages(data.status, data.msg);
+			}
+		});
+	}
+	$scope.showChangeStatusList = function($event){
+		const oid = angular.element($event.currentTarget).parent().find('td:first-child').text();
+		const statusesList = angular.element('<ul></ul>');
+		for (let key in $scope.statuses){
+			statusesList.append('<li key="' + key + '">' + $scope.statuses[key] + '</li>');
+		}
+		angular.element($event.currentTarget).append(statusesList);
+		angular.element($event.currentTarget).find('li').click(function(){
+			const status = angular.element(this).attr('key');
+			const title = angular.element(this).text();
+			ordersServ.changeOrderStatus(oid, status, function(data){
+				if (data.status == 'success'){
+					angular.element($event.currentTarget).html(title);
+				} else{
+					messagesServ.showMessages(data.status, data.msg);
+				}
+			});
+		});
+	}
+	$scope.hideChangeStatusList = function($event){
+		angular.element($event.currentTarget).find('ul').remove();
 	}
 
 	this.init();

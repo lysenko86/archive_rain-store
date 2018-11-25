@@ -1,10 +1,9 @@
-<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages" ng-hide="formIsShown">{{message.text}}</div>
+<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages">{{message.text}}</div>
 <div class="row">
 	<div class="col-xs-12">
         <div class="product-page">
 			<div class="product-page-image pull-left"><img src="public/images/products/{{product.image}}" alt="{{product.title}}"/></div>
-            <div class="product-page-title">{{product.title}}</div>
-			<div class="product-page-descr">{{product.descr}}</div>
+			<div class="product-page-descr" ng-bind-html="product.descr | trustAsHtml"></div>
             <div class="product-page-price">Ціна: {{product.price}} грн.</div>
 			<add-to-cart-button-direct product="{{product}}"></add-to-cart-button-direct>
 			<div class="clearfix"></div>

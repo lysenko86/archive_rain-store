@@ -1,0 +1,131 @@
+<div class="alert" ng-class="message.class" ng-if="message.text" ng-repeat="message in messages">{{message.text}}</div>
+<div class="modal fade" id="popupOrderDetails" tabindex="-1" role="dialog" aria-labelledby="popupOrderDetailsLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="popupOrderDetailsLabel">Деталі замовлення</h4>
+			</div>
+			<div class="modal-body">
+                <table class="table table-bordered">
+        			<thead class="over-head"><tr>
+                        <th width="auto">Назва</th>
+        				<th width="80px">Ціна</th>
+        				<th width="85px">Кількість</th>
+        			</tr></thead>
+        			<tbody>
+        				<tr ng-repeat="product in orderProducts">
+        					<td>{{product.title}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.count}}</td>
+        				</tr>
+        			</tbody>
+        		</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" ng-if="isAuth">
+	<div class="col-xs-12">
+        <div class="well" ng-if="!orders.length">Немає замовлень</div>
+        <h3 ng-if="user.role === 'manager' && orders.length">Мої замовлення</h3>
+		<table class="table table-bordered table-hover orders-table" ng-if="orders.length">
+			<thead class="over-head"><tr>
+				<th width="80px">ID</th>
+                <th width="90px">Створено</th>
+				<th width="185px">Статус</th>
+                <th width="100px">Доставка</th>
+                <th width="auto">Місто</th>
+                <th width="65px">Відділ</th>
+                <th width="70px">Оплата</th>
+                <th width="auto">Коментар</th>
+                <th width="80px">Сума</th>
+			</tr></thead>
+			<tbody>
+				<tr ng-repeat="order in orders" class="orders-table-row">
+					<td>{{order.id}}</td>
+                    <td>{{order.created}}</td>
+                    <td ng-class="{'status-selectable': user.role === 'manager'}" ng-mouseenter="showChangeStatusList($event)" ng-mouseleave="hideChangeStatusList($event)">{{statuses[order.status]}}</td>
+                    <td>{{deliveries[order.delivery]}}</td>
+                    <td>{{order.city}}</td>
+                    <td>{{order.department}}</td>
+                    <td>{{payTypes[order.payType]}}</td>
+                    <td>{{order.comment}}</td>
+                    <td class="orders-table-lat-td">{{order.sum}}<a href="#" class="orders-btn-details" title="Показати товар" data-toggle="modal" data-target="#popupOrderDetails" ng-click="getOrderProducts(order.id); $event.preventDefault();"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="row" ng-if="user.role === 'manager'">
+	<div class="col-xs-12">
+        <div class="well" ng-if="!guestOrders.length">Немає замовлень</div>
+        <h3 ng-if="user.role === 'manager' && guestOrders.length">Замовлення незареєстрованих користувачів</h3>
+		<table class="table table-bordered table-hover orders-table" ng-if="guestOrders.length">
+			<thead class="over-head"><tr>
+				<th width="80px">ID</th>
+                <th width="90px">Створено</th>
+				<th width="185px">Статус</th>
+				<th width="auto">ПІБ</th>
+                <th width="120px">Телефон</th>
+                <th width="100px">Доставка</th>
+                <th width="auto">Місто</th>
+                <th width="65px">Відділ</th>
+                <th width="70px">Оплата</th>
+                <th width="auto">Коментар</th>
+                <th width="80px">Сума</th>
+			</tr></thead>
+			<tbody>
+				<tr ng-repeat="order in guestOrders" class="orders-table-row">
+					<td>{{order.id}}</td>
+                    <td>{{order.created}}</td>
+                    <td ng-class="{'status-selectable': user.role === 'manager'}" ng-mouseenter="showChangeStatusList($event)" ng-mouseleave="hideChangeStatusList($event)">{{statuses[order.status]}}</td>
+                    <td>{{order.fio}}</td>
+                    <td>{{order.phone}}</td>
+                    <td>{{deliveries[order.delivery]}}</td>
+                    <td>{{order.city}}</td>
+                    <td>{{order.department}}</td>
+                    <td>{{payTypes[order.payType]}}</td>
+                    <td>{{order.comment}}</td>
+                    <td class="orders-table-lat-td">{{order.sum}}<a href="#" class="orders-btn-details" title="Показати товар" data-toggle="modal" data-target="#popupOrderDetails" ng-click="getOrderProducts(order.id); $event.preventDefault();"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="row" ng-if="user.role === 'manager'">
+	<div class="col-xs-12">
+        <div class="well" ng-if="!restOfOrders.length">Немає замовлень</div>
+        <h3 ng-if="user.role === 'manager' && restOfOrders.length">Всі інші замовлення</h3>
+		<table class="table table-bordered table-hover orders-table" ng-if="restOfOrders.length">
+			<thead class="over-head"><tr>
+				<th width="80px">ID</th>
+                <th width="90px">Створено</th>
+				<th width="185px">Статус</th>
+				<th width="auto">ПІБ</th>
+                <th width="120px">Телефон</th>
+                <th width="100px">Доставка</th>
+                <th width="auto">Місто</th>
+                <th width="65px">Відділ</th>
+                <th width="70px">Оплата</th>
+                <th width="auto">Коментар</th>
+                <th width="80px">Сума</th>
+			</tr></thead>
+			<tbody>
+				<tr ng-repeat="order in restOfOrders" class="orders-table-row">
+					<td>{{order.id}}</td>
+                    <td>{{order.created}}</td>
+                    <td ng-class="{'status-selectable': user.role === 'manager'}" ng-mouseenter="showChangeStatusList($event)" ng-mouseleave="hideChangeStatusList($event)">{{statuses[order.status]}}</td>
+                    <td>{{order.fio}}</td>
+                    <td>{{order.phone}}</td>
+                    <td>{{deliveries[order.delivery]}}</td>
+                    <td>{{order.city}}</td>
+                    <td>{{order.department}}</td>
+                    <td>{{payTypes[order.payType]}}</td>
+                    <td>{{order.comment}}</td>
+                    <td class="orders-table-lat-td">{{order.sum}}<a href="#" class="orders-btn-details" title="Показати товар" data-toggle="modal" data-target="#popupOrderDetails" ng-click="getOrderProducts(order.id); $event.preventDefault();"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
