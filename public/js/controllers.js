@@ -76,8 +76,8 @@ rainApp.controller('usersCtrl', function($location, $routeParams, $window, $scop
 					});
 				});
 			}
-			if ($routeParams.password){
-				usersServ.reset($routeParams.password, function(data){
+			if ($routeParams.reset){
+				usersServ.reset($routeParams.reset, function(data){
 					messagesServ.showMessages(data.status, data.msg, 2000, function(){
 						$location.url('home');
 					});
@@ -186,7 +186,7 @@ rainApp.controller('productsCtrl', function($location, $routeParams, $scope, mes
 
 
 
-rainApp.controller('cartsCtrl', function($scope, $window, localStorageService, messagesServ, cartsServ, ordersServ, smsServ, cartsFact){
+rainApp.controller('cartsCtrl', function($scope, $window, localStorageService, messagesServ, cartsServ, ordersServ, cartsFact){
 	this.init = function(){
 		const isAuth = localStorageService.get('token');
 		const uid = isAuth ? isAuth.split('.')[0] : -1;
@@ -269,8 +269,6 @@ rainApp.controller('cartsCtrl', function($scope, $window, localStorageService, m
 				ordersServ.createOrder($scope.order, function(data){
 					if (data.status == 'success'){
 						$scope.orderStatus++;
-						smsServ.sendSMStoStore('Нове замовлення: ' + $scope.order.sum + 'грн, ' + $scope.order.phone + ', ' + $scope.order.fio);
-						smsServ.sendSMStoClient($scope.order.phone, 'Замовлення на суму ' + $scope.order.sum + 'грн. успішно оформлене. Дякуємо!');
 					}
 					messagesServ.showMessages(data.status, data.msg, $scope.order.payType === 'card' ? 5000 : 3000, function(){
 						if (data.status == 'success'){

@@ -3,9 +3,7 @@
 var isDev  = location.href.indexOf('/rain/') > -1;
 var config = {
     isDev : isDev,
-    api: isDev ? 'http://rain/api.php' : 'http://rainstore.com.ua/api.php',
-    smsLink: 'https://alphasms.ua/api/http.php',
-    smsKey: '3f7dfef5ab1db7fe0a167d75025574543c7f85e7'
+    api: isDev ? 'http://rain/api.php' : 'http://rainstore.com.ua/api.php'
 };
 
 
@@ -71,17 +69,6 @@ rainApp.service('requestServ', function($http, localStorageService, messagesServ
         else{
             cb(data);
         }
-    }
-});
-
-
-
-rainApp.service('smsServ', function($http){
-    this.sendSMStoStore = function(message){
-        $http.get(config.smsLink + '?version=http&key=' + config.smsKey + '&command=send&from=RainStore&to=+380686178656&message=' + message);
-    }
-    this.sendSMStoClient = function(phone, message){
-        $http.get(config.smsLink + '?version=http&key=' + config.smsKey + '&command=send&from=RainStore&to=' + phone + '&message=' + message);
     }
 });
 
