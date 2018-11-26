@@ -23,6 +23,16 @@ class Orders{
             array_push($dataArr, $oid, $products[$i]->id, $products[$i]->price, $products[$i]->count);
         }
         $this->db->query($queriesArr, $dataArr, NULL, true);
+
+
+        if ($uid != '-1'){
+            $email = $this->db->query("SELECT `email` FROM `users` WHERE `id` = ?", [$uid]);
+            $email = $email[0]['email'];
+            $this->data['arr'] = $this->data['arr'][0];
+            $subject = 'RainStore.com.ua - Оформлення замовлення';
+            $mail    = "Дякуємо за ваше замовлення, наші менеджери дуже скоро звʼяжуться з вами.\n\nНомер вашого замовлення: {$oid}" . ($this->params['payType'] == 'cash' ? "\nСума до оплати: {$this->params['sum']}грн. + доставка" : '');
+            mail($email, $subject, $mail);
+        }
         $this->data['status'] = 'success';
         $this->data['msg']    = "Готово! Замовлення успішно створено." . ($this->params['payType'] == 'card' ? ' Зараз вас буде перенаправлено на сторінку оплати.' : '');
     }
