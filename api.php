@@ -1,5 +1,6 @@
 <?php
     require_once('db.php');
+    require_once('sms.php');
     require_once('router.php');
 
     require_once('controllers/users.php');

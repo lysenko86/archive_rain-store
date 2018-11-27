@@ -24,6 +24,17 @@ class Orders{
         }
         $this->db->query($queriesArr, $dataArr, NULL, true);
 
+        $sms = new SMSclient('', '', '3f7dfef5ab1db7fe0a167d75025574543c7f85e7');
+        $sms->sendSMS('RainStore', '380686178656', 'Замовлення ' . $oid . ': ' . $this->params['sum'] . 'грн, ' . $this->params['phone'] . '.');
+        $sms->sendSMS('RainStore', str_replace('+', '', $this->params['phone']), 'Замовлення ' . $oid . ' на суму ' . $this->params['sum'] . 'грн. успішно оформлене. Дякуємо!');
+        /*$id = $sms->sendSMS('RainStore', '380XXXXXXXXX', 'Текст сообщения на русском языка в UTF-8 любой длинны');
+        if($sms->hasErrors()){
+            var_dump($sms->getErrors());
+        }
+        else{
+            var_dump($id);
+        }
+        exit;*/
 
         if ($uid != '-1'){
             $email = $this->db->query("SELECT `email` FROM `users` WHERE `id` = ?", [$uid]);
