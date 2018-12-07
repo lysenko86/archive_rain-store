@@ -73,6 +73,15 @@ ul.navbar-nav{
             background-color: #7d0092;
             color: #fff;
         }
+.header-phone{
+    position: absolute;
+    top: 6px;
+    left: 140px;
+    font-size: 40px;
+    color: #7d0092;
+    text-shadow: #fff -2px -2px 10px;
+    font-weight: bold;
+}
 
 .main{
     background-color: #ffffff;
