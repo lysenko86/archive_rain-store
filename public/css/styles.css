@@ -124,6 +124,7 @@ table thead{
     font-weight: bold;
     text-align: center;
     margin-top: 25px;
+    padding-bottom: 2px;
 }
     .catalog-product-image img{
         width: 298px;
